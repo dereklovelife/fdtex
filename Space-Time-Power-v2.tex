@@ -1,0 +1,793 @@
+\documentclass[12pt,draftcls,onecolumn,journal]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol} % Used for the two-column layout of the document
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{color}
+\usepackage{epstopdf}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage[color]{changebar}
+\cbcolor{red}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\renewcommand{\baselinestretch}{1.9}
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+\begin{document}
+
+\title{Multi-Dimensional Resource Allocation For Uplink Throughput Maximisation in Data and Energy Integrated Communication Networks}
+
+\author{Jianjun Yang, Kesi Lv, Jie Hu, ~\IEEEmembership{Member,~IEEE}, Qin Yu, ~\IEEEmembership{Member,~IEEE}, Kun~Yang,~\IEEEmembership{Senior Member,~IEEE}, 
+        
+\thanks{Jianjun Yang, Kesi Lv and Jie Hu are with the School of Information and Communication Engineering, University of Electronic Science and Technology of China, Chengdu, 611731, China, email: jjyang@uestc.edu.cn, kslv@std.uestc.edu.cn and hujie@uestc.edu.cn}
+\thanks{Kun Yang is both with the School of Computer Science and ELectronic Engineering, University of Esssex, Colchester, CO4 3SQ, U.K., and with the School of Information and Communication Engineering, University of Electronic Science and Technology of China, Chengdu, 611731, China, email: kunyang@essex.ac.uk}
+\thanks{The authors would like to thank the financial support of National Natural Science Foundation of China (NSFC), Grant No. 61601097, U1705263 and 61620106011 as well as that of the Fundamental Research Funds for the Central Universities, No. ZYGX2016Z011. This work is also sponsored by Huawei Innovation Research Program (HIRP).}}
+
+\maketitle
+
+\begin{abstract}
+	%RF signals transmitted by Hybrid Base Stations (H-BSs) are exploited for both the wireless information transfer (WIT) and the wireless power transfer (WET) in order to satisfy both the communication and charging requests of the low-power Internet of Things (IoT) devices.
+	Different from conventional Wireless Powered Communication Networks (WPCNs), the hybrid base station (H-BS) adopts the simultaneous wireless information and power transfer (SWIPT) for the sake of satisfying the downlink data and energy requests of the multiple user equipments (UEs). The energy harvested from the downlink transmissions can be depleted for supporting the UEs' uplink transmissions. Integrating SWIPT in the downlink transmission of the WPCN yields a generic data and energy integrated communication network (DEIN), where the H-BS is equipped with multiple antennas and both the downlink and uplink transmissions are slotted in the time domain. Furthermore, both the sum-throughput and the fair-throughput of the uplink transmissions are maximised by jointly optimising the transmit beamformer of the H-BS, the time-slot allocation and the signal splitting strategies of the UEs, while satisfying the UEs' minimum downlink transmission requirements. Due to the non-convexity of the problem, a low-complexity successive convex approximation (SCA) based algorithm is relied upon for obtaining the optimal resource allocation scheme in the space-time-power domain. The numerical results demonstrate that supporting low-throughput data services during the downlink transmissions does not degrade the wireless power transfer and hence does not reduce the uplink throughput.
+\end{abstract}
+
+\begin{IEEEkeywords}
+	Simultaneous Wireless Information and Power Transfer SWIPT, Wireless Powered Communication Network (WPCN), Data and Energy Integrated Communication Network (DEIN), Multiple Antennas, Multi-Dimensional Resource Allocation, Sum-Throughput Maximisation, Fair-Throughput Maximisation, Successive Convex Approximation (SCA)
+\end{IEEEkeywords}
+
+
+\section{Introduction}
+% no \IEEEPARstart
+
+In the upcoming era of the Internet of Things (IoT) \cite{IOT}, the low power devices are massively deployed for the sake of data collecting, environment sensing and decision making etc., which constitute the promising future of smart cities, industrial internet and autonomous driving. However, the functions of the low-power devices are heavily restricted by the energy supply, since they are only powered by the batteries having limited capacity. The IoT devices are normally deployed in unreachable places. Frequently replacing batteries may result in an escalating maintenance cost for the operator.
+
+Harvesting energy from the renewable sources, such as solar energy and wind energy, is a feasible option for the sake of increasing the lifetime of the low power user equipments (UEs) \cite{IEEE:EH}. Alevizos \textit{et al.} \cite{RF_EH_1} studied both limited sensitivity and nonlinearity of far field RF energy harvesting observed in reality and quantifies their effect. Muncuk \textit{et al. } \cite{RF_EH_2} demonstrates an adjustable circuit for harvesting from LTE 700 MHz, GSM 850 MHz, and ISM 900 MHz bands with one single circuit and their results reveal more than 45\% power conversion efficiency. However, energy harvesting is self-initiated by UEs, who are running out of energy. Furthermore, UEs are only capable of passively gleaning energy from the environment, which results in low-efficiency,  unpredictability and uncontrollability of the stochastic energy arrivals. In order to increase the UEs' energy harvesting efficiency, radio frequency (RF) signals can be exploited for enabling the dedicated wireless power transfer (WPT). For example, \textbf{Grover \textit{et al.} \cite{IEEE:swipt_2} optimised the WPT performance in a single-input-single-output (SISO) frequency selective channel. }
+
+The downlink RF signal based WPT is enabled for the sake of supporting the low-power UEs' uplink transmission, which stimulates substantial research interests in the design of wireless powered communication networks (WPCNs) \cite{wpcn_1,wpcn_2,wpcn_3,wpcn_4,wpcn_5,wpcn_6,wpcn_7,wpcn_8,wpcn_9,wpcn_10,wpcn_11} {\color{red} (Summarise all the references cited for WPCNs.)}. Hybrid Base Stations (H-BSs) plays an central role in WPCNs, which both supports the downlink WPT and the uplink data reception. The ``harvest-then-transfer'' protocol has been adopted by the UEs for dividing the downlink WPT and the uplink wireless information transfer (WIT) in the time domain \cite{wpcn_1}.
+
+However, the main challenge that deters WPCNs to become an reality is the lack of efficient resource allocation schemes for striking a balanced performance between the downlink WPT and the uplink WIT. For example, H. Ju \textit{et al.} \cite{wpcn_1} proposed TDMA-based WPCN system and optimize the time slots as well; H. Ju \textit{et al.} \cite{wpcn_2}, X. Kang \textit{et al.} \cite{wpcn_4} and H. Lee \textit{et al.} \cite{wpcn_8} continued studying the time resource allocation in FDD WPCN scenario; Y. L. Che \textit{et al.} \cite{wpcn_3} maximized the spatial throughput by adopting stochastic geometry;  Q. Wu \textit{et al.} \cite{wpcn_6} amied to investigate the maximum achievable energy efficiency (EE) of the network via joint time allocation and power control while taking into account the initial battery energy of each user; T. A. Zewde \textit{et al.} \cite{wpcn_10} studied the performance of nonorthogonal multiple access (NOMA) schemes in WPCN focusing on the system energy efficiency (EE). Furthermore, multiple antennas equipped at H-BSs may provide additional degree of freedom in the spatial domain, which thus substantially improve the performance of the WPCNs. L. Liu \textit{et al.} \cite{wpcn_5} optimized the energy beamforming at the transmitter in SDMA-based WPCN system; Q. Sun \textit{et al.} \cite{wpcn_7} exploit both the beamforming optimization and time allocation in the TDMA-based system. W. Huang \textit{et al.} \cite{wpcn_9} exacted and asymptoticed closed-form expressions for the average throughput of a multi-antenna WPCN with energy beamforming in both delay-limited and delay-tolerant transmission modes. S. Wang and \textit{et al.} \cite{wpcn_11} solved the large-scale antenna beamforming optimization by using first-order method.
+
+In the conventional WPCNs \cite{wpcn_1,wpcn_2,wpcn_3,wpcn_4,wpcn_5,wpcn_6,wpcn_7,wpcn_8,wpcn_9,wpcn_10,wpcn_11
+}{\color{red} (Summarise all the references cited for WPCNs.)}, the downlink transmission of a H-BS completely contributes to the dedicated WPT, which largely ignores the downlink data request of the UEs. However, coordinating the WPT and the conventional wireless information transfer (WIT) in the same RF band is challenging, since they may compete for the precious resources of the air interface, which yields a large body of research concerning the simultaneous wireless information and power transfer (SWIPT) \cite{swipt_5,swipt_6, TS_1, TS_2, PS_1, PS_2} {\color{red} (Summarise all the references in SWIPT.)}. \textbf{Varshney \textit{et al.} \cite{swipt_5} is the pioneer of exploring the inherent tradeoff between the WPT and the WIT from the information theoretical aspect by invoking an ideal receiver. In order to further advance the SWIPT to the practical implementation, signal splitting based receivers have been widely investigated.} \textbf{Zhou \textit{et al.} \cite{swipt_6} proposed practical receiver architectures for simultaneous reception of the information and energy, which rely upon the signal splitting in either the power domain and the time-domain.} {\color{red} Please review 2 latest papers for the power splitting and 2 papers for the time switching. Please write the review according to the above example of \cite{swipt_5,swipt_6}.} H. Lee \textit{et al.} \cite{TS_1} studied a scheme which jointly determines the time switching and the transmit covariance matrix and then present a general joint TS protocol. A. A. Al-habob \textit{et al.} \cite{TS_2} proposed a modified time-switching relaying (TSR) protocol for dual-hop relay networks with SWIPT technique. K. Xu \textit{et al.} \cite{PS_1} considered the both TS and PS protocol design in a full-duplex massive MIMO SWIPT system; D. Mishra \textit{et al.} \cite{PS_2} optimized both the precoding matrix and the PS ratio in a SWIPT MIMO system. It has been widely recognised that the power splitting (PS) based receiver may reach a larger rate-energy region than its time switching based counterpart, when the linear RF-DC converter is invoked \cite{swipt_5}.
+
+Against this background, our novel contributions are summarised as below:
+\begin{itemize}
+	\item \textit{By integrating the SWIPT in the downlink transmission of the WPCN, we establish a generic data and energy integrated communication network (DEIN), where the UEs acquire both data and energy from the downlink transmission of the H-BS and they upload their own data to the H-BS by exploiting the energy harvested during their uplink transmissions.}
+	\item \textit{In order the maximise the sum-throughput and the fair-throughput of the UEs' uplink transmissions, the corresponding multi-dimensional resource allocation scheme is obtained by jointly optimising the transmit beamformer of the H-BS in the spatial domain, by optimising the time-slot allocation in the time-domain and by optimising the UEs' power splitting strategies  in the power domain.}
+	\item \textit{The original non-convex optimisation problem is decomposed and transformed into several convex sub-problems by invoking the successive convex approximation (SCA). Both the classic Lagrange multiplier and the interior points methods are then invoked for obtaining the optimal solution to each convex sub-problem. The resultant low-complexity algorithm is capable of efficiently finding the optimal multidimensional resource allocation scheme.}
+	\item \textit{The numerical results demonstrate the efficiency of our proposed multi-dimensional resource allocation scheme and the advantage of our DEIN model over the conventional WPCN.}
+\end{itemize}
+
+The rest of this paper is organised as follows. Our DEIN model is introduced in Section II, which is followed by the sum-throughput maximisation in Section III and the fair-throughput maximisation in Section IV, respectively. By providing the numerical results in Section V, we finally conclude this paper in Section VI.
+
+
+\section{System Model}
+
+\begin{figure}[!t]	
+	\centering
+	\includegraphics[width=0.8\linewidth]{figure/System.pdf}
+	\caption{The (a) downlink and (b) uplink transmissions of the DEIN consisting of a single H-BS and $K$ UEs.}
+	\label{fig:system}
+\end{figure}
+
+The DEIN system considered in our paper is illustrated in Fig.\ref{fig:system}, which consists of a single H-BS and a set of UEs $\mathcal{UE}=\{UE_i | i =1,2,\cdots, K\}$. The total number of UEs is thus $|\mathcal{UE}| = K$. The H-BS equipped with $N_t$ transmitting antennas and $N_r$ receiving antennas has the following pair of functions:
+\begin{itemize}
+	\item The H-BS transmits the modulated RF signals to the UEs in the downlink by simultaneously delivering the energy to the UEs;
+	\item The H-BS receives the data uploaded by the UEs during their uplink transmissions.
+\end{itemize}
+The H-BS operates in a full-duplex (FD) mode by adopting both the zero-forcing (ZF) transmitting beamforming and the receiving combination to avoid the self-interference (SI), while the UEs works in a time-division-duplex mode during the uplink transmission in order to eliminate the interference from other UEs. 
+
+The UEs in the DEIN system are batteryless but they are all equipped with the super-capacitors. Their uplink transmissions completely rely on the energy harvested from the downlink transmissions of the H-BS. The UEs equipped with a single antenna for each has the following pair of functions:
+\begin{itemize}
+	\item The UEs harvest the modulated RF signals to complete the following uplink transmission. 
+	\item Since the super capacitors have a very short discharging cycle, they cannot store the energy for a long period. Therefore, the UEs may deplete all the energy harvested from the H-BS for powering their own uplink transmissions.
+\end{itemize}
+
+
+\subsection{Frame Structure}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\linewidth]{figure/Frame.pdf}
+\setlength{\abovecaptionskip}{0pt}
+\setlength{\belowcaptionskip}{0pt} \caption{Frame structure of the H-BS's and UE's slotted operation. EH: Energy Harvesting. ID: Information Decoding. Up: Uploading. St: Standby.} \label{fig:Frame}
+\end{figure}
+
+In our DEIN system, the H-BS broadcasts the energy during the whole frame while the operations of the UEs are slotted in the time-domain by adopting the classic time-division-multiple-access (TDMA) protocol in the medium-access-control (MAC) layer in order to suppress the interference incurred by the transmissions of multiple UEs. In general, a single transmission frame consists of two phases, namely the control phase having a duration of $T_c$ and the transmission phase having a duration of $T_t$, as depicted in Fig.\ref{fig:Frame}. Therefore, the duration of a single transmission frame is $T=T_c+T_t$. The control signalling exchange is carried out during the control phase in order to realise the following functions:
+\begin{itemize}
+	\item \textit{Channel Estimation}. A training pilot can be sent by a UE to the H-BS. The received pilot can be further processed by the H-BS in order to extract the channel state information (CSI) of the uplink beween the UE and the H-BS. The acquired CSI of the uplink can also be regarded as that of the corresponding downlink by exploiting the channel reciprocity of the TDD system. This classic reverse-link training may significantly save the energy of the batteryless UEs, since the UE does not need neither sophisticated signal processing nor feedback transmission.
+	\item \textit{Resource Allocation}. Relying on the acquired CSI, the H-BS may carry out the resource allocation scheme in order to maximise the throughput performance. It then informs the UEs of their signal splitting strategies and the duration of their assigned time-slots.
+	\item \textit{Synchronisation}. The H-BS and the UEs have to be accurately synchronised by invoking the time-stamp-based synchronization approach \cite{7046389}. The clock information of the H-BS is broadcasted to the UEs during the control phase. The UEs may adjust their local clock to synchronise themselves with the UEs. Synchronisation is particularly essential for the TDMA aided system, since the
+\end{itemize}
+
+The transmission phase of UEs is divided into a range of uplink time-slots denoted as $\mathbf{t} = \{t_j | j=0, 1,2,\cdots, K\}$ for supporting both the downlink energy transmission and the uplink information transmissions of the multiple UEs. Therefore, we have
+\begin{align}
+\sum_{i=0}^{K} t_i \leq T_t
+\end{align}
+The detailed operations of the H-BS and the UEs during the transmission phase are portrayed in Fig.\ref{fig:Frame} and summarised as below:
+\begin{itemize}
+	\item For the downlink transmissions, the H-BS modulates the data requested by the UE $U_i$ on the RF signal transmitted during the specific time-slot $t_i^D$, as illustrated in Fig.\ref{fig:Frame}(a). For the downlink reception, $U_i$ split the received RF signal in the power-domain during $t_i^D$ for simultaneous energy harvesting and information decoding. Due to the broadcast nature of the wireless channels, $U_i$ may also harvest energy from the modulated RF signals requested by its peers during other time-slots, as illustrated in Fig.\ref{fig:Frame}(b).
+	\item For the uplink transmissions, $U_i$ may upload its data to the H-BS during the specific time-slot $t_i^U$, as depicted in Fig.\ref{fig:Frame}, by exploiting the energy harvested from all the time-slots $\mathbf{t}^{D}$. This is the classic ``harvest-then-transfer'' protocol \cite{wpcn_1}. During other time-slots of the uplink transmissions, $U_i$ may remain in the standby mode without any other operation. The H-BS operates as a information receiver during the entire uplink transmission process.
+\end{itemize}
+
+%\subsection{Channel Model}
+
+The far-field path-loss $\Omega_i$ between the H-BS and the UE $U_i$ can be formulated as
+\begin{align}
+\Omega_i = \Omega_0 \cdot \left(\frac{d_i}{d_0}\right)^{\alpha}. \label{eq:PathLoss}
+\end{align}
+In Eq.\eqref{eq:PathLoss}, $d_0$ represents the near-field range of the transmit antenna, within which the power-law of the path-loss is invalid. The path-loss exponent is denoted as $\alpha$ in Eq.\eqref{eq:PathLoss}.
+
+The wireless channels between the H-BS and the UEs obey the uncorrelated block fading \cite{access_3}. The channel coefficients remains unchanged during a single transmission frame but they vary from a transmission frame to another \cite{access_4}. The downlink channel coefficient between the H-BS and $U_i$ is represented by the $1\times N_t$ column vector $\mathbf{h}_i$. Since the channel reciprocity is assumed, the uplink channel coefficient is thus $\mathbf{h}_i^T$, which is transpose of $\mathbf{h}_i$.
+
+%\subsection{Downlink Transmissions}
+
+Without loss of generality, the H-BS is assumed to transmit the modulated complex symbol $x_i^D$ destined to the UE $U_i$ during the downlink time-slot $t_i^D$. We have $\mathbb{E}[x_i^Dx_i^{D*}] = 1$, where $x_i^{D*}$ is the conjugate value of $x_i^D$. Considering an arbitrary time-slot $t_j^D$, during which the symbol $x_j^D$ is transmitted by the H-BS, the RF signal received by $U_i$'s antenna is expressed as
+\begin{align}
+y_{i}^D = \sqrt{\frac{P_t}{\Omega_i}}\mathbf{h}_i\mathbf{w}_tx_i^D + z_0,
+\end{align}
+for $\forall i,j=1,\cdots,K$, where $P_t$ is the transmit power of the H-BS and the $N_t\times 1$ vector $\mathbf{w}_t$ is the H-BS's normalised transmit beamformer, whereas $z_0$ is the Gaussian distributed noise having a zero mean and a variance of $\sigma_0^2$.
+
+
+The RF signal $y_{i}^D$ received by $U_i$ is fully exploited for energy harvesting. The received power of $y_{i}^D$ is $P_{i}^D = P_t \Omega_i^{-1} \boldsymbol{\mathrm{Tr({h}_i\mathbf{w}_t\mathbf{w}_t^H\mathbf{h}_i^H)}}$. The energy harvested by $U_i$ during the whole frame time-slot is thus expressed as
+\begin{align}
+E_{i}^D & = \zeta \sum_{j=0}^{i-1}t_{j}P_{i}^D \\
+&=\zeta \sum_{j=0}^{i-1}t_{j}P_t \Omega_i^{-1} \boldsymbol{\mathrm {Tr(\mathbf{h}_i\mathbf{w}_t\mathbf{w}_t^H\mathbf{h}_i^H)}} \\
+&=\gamma_i\sum_{j=0}^{i-1}t_{j},
+\end{align}
+where we introduce $\gamma_i=\zeta P_t\Omega_i^{-1}\boldsymbol{\mathrm{Tr(\mathbf{h}_i\mathbf{w}_t\mathbf{w}_t^H\mathbf{h}_i^H)}}$ to simplify the expresseion. \cbend. Note that during the downlink transmission, the H-BS adopts the identical transmit beamformer $\mathbf{w}_t$ for all the downlink time-slots $\mathbf{t}^D$, which form a multicast beam for the SWIPT. As a result, the choice of the transmit beamformer $\mathbf{w}_t$ may satisfy the data and energy requests of the multiple UEs, while avoiding the complexity of finding the transmit beamformer for every single downlink time-slot.
+
+%\subsection{Uplink Transmissions}
+
+As illustrated in Fig.\ref{fig:Frame}(b), $U_i$ only uploads its own data to the H-BS during the uplink time-slot $t_{i}$ by utilizing the energy havested during the previous time slots, but remain silent during the following time slots. The transmit power of $U_i$ is $P_i^{U} = E_{i}^D / t_{i}$, since all the energy harvested by $U_i$ during the downlink transmission is now depleted for powering its own uplink transmission. As a result, the RF signals received by the H-BS's multiple antennas during the uplink time-slot $t_i$ is obtained as
+\begin{align}
+\mathbf{y}_{i}^U = \omega_r\sqrt{\frac{E_{i}^D}{t_{i}^U}}\mathbf{h}_i^Tx_i^U + \mathbf{n}_0 + \mathbf{n_{si}},
+\end{align}
+where $x_i^U$ having $\mathbb{E}[x_i^Ux_i^{U*}]$ is the modulated complex symbol uploaded by $U_i$ and the $N_t\times 1$ vector $\mathbf{n}_0$ represents the Gaussian distributed noise received by the antennas of the H-BS. Every element in $\mathbf{n}_0$ has a zero mean and a variance of $\sigma_0^2$. We assume that the power of the uplink noise is the same as that of the downlink power. $\mathbf{n_{si}} = P_t\Omega_{si}^{-1}\mathbf{Tr(H_{SI}\omega_t\omega_t^HH_{SI}^H)}$ represents the self-interference noise conducted by our full-duplex system. In order to eliminate the self-interference nosie, zero-forcing beamforming is adopted. Therefore, the transmit beamforming $\mathbf{\omega_t}$ and the combination at the receiver $\mathbf{\omega_r}$ should satisfy the following equation constraint.
+\begin{align}
+\mathbf{Tr(\omega_rH_{si}\omega_t\omega_t^HH_{si}^H\omega_r^H)} = 0.
+\end{align}
+As a result, the $U_i$'s achieved throughput in the UL may be formulated as follows:
+\begin{align}
+R_i^U & = t_i\log(1 + \frac{E_i^D}{t_i\sigma^2}) \\
+& = t_i\log(1 + \frac{\gamma_i\sum_{j=0}^{i-1}t_{j}}{t_i\sigma^2})
+\end{align}
+where $\sigma^2 = \sigma_0^2 + \sigma_{cov}^2$, represents the noise power, which includes both the channel noise and the receiver noise.
+
+Unlike the half-duplex WPCN system, the UEs in the full-duplex system are highly interconnected. The order of UEs may cause server impact on the throughput of the system, since one UE's energy harvesting time is the sum of the former UEs' transmission time. As a result, we further consider the user scheduling in order to maximize the system performance. We denote the user order set by $\mathbf{\Theta}$.
+
+\section{Uplink Sum-Throughput Maximization}
+
+In this section, Sum-Throughput is analysised to exploit the throughput limitation in our WPCN system.
+
+The uplink sum-throughput maximisation problem is then formulated as
+\begin{align}
+	\text{(P1): } & \max_{\mathbf{w_t}, \mathbf{t}, \mathbf{w_r}, \mathbf{\Theta} \sum_{i=1}^K R_{i}^U (\mathbf{w}_t, \mathbf{t}^D, t_i^U, \boldsymbol{\rho}) \label{eq:SumRate}\\
+	\text{s.t. } & R_{i}^D (\mathbf{w}_t, t_i^D, \rho_i) \geq D_i,\ \forall i = 1,\cdots, K, \tag{\ref{eq:SumRate}a} \label{eq:SumRate-a}\\
+	& 0\leq \rho_i\leq 1, \ \forall i = 1,\cdots, K, \tag{\ref{eq:SumRate}b} \label{eq:SumRate-b} \\
+	& \sum_{i=1}^K(t_i^D + t_i^U) \leq T_t, \tag{\ref{eq:SumRate}c} \label{eq:SumRate-c}\\
+	& \text{Tr}(\mathbf{w}_t\mathbf{w}_t^*) \leq 1. \tag{\ref{eq:SumRate}d} \label{eq:SumRate-d}
+\end{align}
+As expressed in Eq.\eqref{eq:SumRate}, the objective of the optimisation problem (P1) is to maximise the uplink sum-throughput of all the UEs by optimising the transmit beamformer $\mathbf{w}_t$ in the spatial-domain, by optimising the duration of the downlink time-slots $\mathbf{t}^D$ and that of the uplink time-slots $\mathbf{t}^U$ in the time-domain as well as by optimising the power splitting strategies $\boldsymbol{\rho} = \{\rho_i | i = 1,\cdots, K\}$ in the power domain. The uplink throughput $R_i^U$ of $U_i$ in the objective \eqref{eq:SumRate} is a function of $\mathbf{w}_t$, $\mathbf{t}^D$, $t_i^U$ and $\boldsymbol{\rho}$, according to Eq.\eqref{eq:ULRate}. The downlink throughput $R_i^D$ of Eq.\eqref{eq:DLRate} is a function of $\mathbf{w}_t$, $t_i^D$ and $\rho_i$, which has to be higher than $U_i$'s downloading request $D_i$, as expressed in the constraint \eqref{eq:SumRate-a}. The power splitting ratios $\boldsymbol{\rho}$ is naturally constrained by \eqref{eq:SumRate-b}. As expressed in the constraint \eqref{eq:SumRate-c}, the total duration of all the downlink and uplink time-slots should be lower than the duration of the transmission phase $T_c$. The constraint \eqref{eq:SumRate-d} represents that the total power weights of the normalised transmit beamformer should be lower than a unity, where Tr$(\cdot)$ represents the trace of a matrix. By letting $\mathbf{W}_t = \mathbf{w}_t\mathbf{w}_t^*$, the constraint \eqref{eq:SumRate-d} is equivalent to the following pair: $\text{Tr}(\mathbf{W}_t) \leq 1$ and $\text{Rank}(\mathbf{W}_t) = 1$. The rank constraint imposes difficulty in solving the problem (P1). As a result, we relax the rank constraint on the semi-definite transmit beamforming matrix $\mathbf{W}_t$, which is well known as the semi-definite relaxation (SDR). Then, instead of $\mathbf{w}_t$, we will focus on the optimisation of the transmit beamforming matrix $\mathbf{W}_t$ without any rank constraint in the spatial-domain. By solving the relaxed problem (P1), We may obtain the our multi-dimensional resource allocation scheme $\{\mathbf{t}^{D\dagger}, \mathbf{t}^{U\dagger}, \boldsymbol{\rho}^\dagger, \mathbf{W}_t^\dagger\}$. Unfortunately, due to the coupled parameters $\{\mathbf{t}^{D}, \mathbf{t}^{U}, \boldsymbol{\rho}, \mathbf{W}_t\}$ and the SDR, we cannot find the global optimal solution, since (P1) is still a non-convex problem.
+
+As a result, according to the basic principle of the classic SCA method \cite{sca}, $P(1)$ can be decomposed into the following pair of sub-problems (P2) and (P3). Given a specific transmit beamforming matrix $\mathbf{W}_t$ satisfying $\text{Tr}(\mathbf{W}_t) \leq 1$, the sub-problem (P2) is formulated as
+\begin{align}
+	\text{(P2): } & \max_{\mathbf{t}^D, \mathbf{t}^U, \boldsymbol{\rho}} \sum_{i=1}^K R_{i}^U (\mathbf{t}^D, t_i^U, \boldsymbol{\rho} | \mathbf{W}_t) \label{eq:P2}\\
+	\text{s.t. } & R_{i}^D (t_i^D, \rho_i | \mathbf{W}_t) \geq D_i,\ \forall i = 1,\cdots, K, \tag{\ref{eq:P2}a} \label{eq:P2-a}\\
+	& \text{\eqref{eq:SumRate-b} and \eqref{eq:SumRate-c}.} \nonumber
+\end{align}
+According to Eqs.\eqref{eq:DLRate} and \eqref{eq:ULRate}, the downlink throughput $R_{i}^D$ and the uplink throughput $R_i^U$ are both functions of $\mathbf{t}^D$, $\mathbf{t}^U$ and $\boldsymbol{\rho}$. As expressed in the objective \eqref{eq:P2}, given $\mathbf{W}_t$, (P2) aims for maximising the uplink sum-throughput by optimising the time- and power-domain resource allocation scheme $\{\mathbf{t}^{D\ddagger}, \mathbf{t}^{D\ddagger}, \boldsymbol{\rho}^{\ddagger} | \mathbf{W}_t\}$. 
+
+Given a specific time- and power-domain resource allocation scheme $\{\mathbf{t}^{D}, \mathbf{t}^{D}, \boldsymbol{\rho}\}$, the sub-problem (P3) is formulated as
+\begin{align}
+	\text{(P3): } & \max_{\mathbf{W}_t} \sum_{i=1}^{K}  R_{i}^U (\mathbf{W}_t | \mathbf{t}^D, t_i^U, \boldsymbol{\rho}) \label{eq:P3} \\
+	\text{s.t. } & R_{i}^D ( \mathbf{W}_t | t_i^D, \rho_i ) \geq D_i,\ \forall i = 1,\cdots, K \tag{\ref{eq:P3}a} \\
+	             & \text{Tr}(\mathbf{W}_t) \leq 1. \tag{\ref{eq:P3}b}
+\end{align}
+In (P3), $R_i^D$ and $R_i^U$ are both convex functions of $\mathbf{W}_t$, according to Eqs.\eqref{eq:DLRate} and \eqref{eq:ULRate}. As formulated in the objective \eqref{eq:P3}, given $\{\mathbf{t}^{D}, \mathbf{t}^{D}, \boldsymbol{\rho}\}$, the convex optimisation (P3) aims for maximising the uplink sum-throughput by optimising the transmit beamforming matrix $\mathbf{W}_t^{\ddagger}$.
+
+In the rest of this section, we will elaborate on how we jointly solve (P2) and (P3) in order to obtain the sub-optimal resource allocation scheme $\{\mathbf{W}_t^\dagger, \mathbf{t}^{D\dagger}, \mathbf{t}^{U\dagger}, \boldsymbol{\rho}^\dagger\}$.
+
+\subsection{Feasibility of Resource Allocation.}
+
+Let us first discuss the existence of a feasible resource allocation scheme. We propose a minimisation problem of the total duration of downlink time-slots $\mathbf{t}^D$ by optimising the transmit beamforming matrix $\mathbf{W}_t$, which is formulated as
+\begin{align}
+	\text{(P1-1): } &\min_{\mathbf{w}_t}\sum_{i=1}^{K} \frac{D_i}{\log\left(1 + \frac{P_t\mathbf{h}_i\mathbf{w}_t\mathbf{w}_t^*\mathbf{h}_i^*}{\Omega_i\sigma_{cov}^2}\right)}, \label{eq:P1-1}\\
+	\text{s. t. } &\text{Tr}(\mathbf{W}_t) \leq 1. \tag{\ref{eq:P1-1}a} \label{eq:P1-1-a}
+\end{align}
+The fractional expression of the objective \eqref{eq:P1-1} makes the problem (P1-1) non-convex. Since a logarithmic function is monotonously increasing with respect to its argument, taking the logarithmic operation on the objective \eqref{eq:P1-1} may not alter the optimality of (P1-1) but convert the non-convex objective to a convex one. As a result, the non-convex (P1-1) can be reformulated as the following convex problem:
+\begin{align}
+	\text{(P1-2): } & \min_{\mathbf{W}_t}\sum_{i=1}^{K} \left\{ \log D_i - \log\left[\log\left(1 + \frac{P_t\text{Tr} (\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t)}{\Omega_i\sigma_{cov}^2}\right)\right]\right\}, \label{eq:P1-2}\\
+	\text{s.t. } & \text{Tr}(\mathbf{W}_t) \leq 1, \tag{\ref{eq:P1-2}a} \label{eq:P1-2-a}
+\end{align}
+where we have $\text{Tr}(\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t) = \mathbf{h}_i\mathbf{w}_t\mathbf{w}_t^*\mathbf{h}_i^*$. {\color{red} (Kesi, is this correct? Do you use this expression for simplifying the following derivative operation?)}. In order to efficiently solve (P1-2), we design an algorithm by exploiting the classic interior point method \cite{convex}. We then reformulate the constrained problem (P1-2) to the following unconstrained problem:
+\begin{align}
+	\text{(P1-3): } \min_{\mathbf{W}_t} f_1(\mathbf{W}_t) &= \sum_{i=1}^{K} \left\{ \log D_i - \log\left[\log\left(1 + \frac{P_t\text{Tr}(\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t)}{\Omega_i\sigma_{cov}^2}\right)\right]\right\} \nonumber \\
+	&- \phi(1-\text{Tr}(\mathbf{W}_t)) - \phi(\text{Det}(\mathbf{W}_t)), \label{eq:P1-3}
+\end{align}
+where $\text{Det}(\cdot)$ is the determinant operation on a matrix and $\phi(u)$ is the logarithmic barrier function \cite{convex}, which is given by
+\begin{align}
+	\phi(u)=\left\{
+	\begin{array}{ll}
+		\displaystyle{\frac{\log(u)}{m}}, & u > 0, \\
+		-\infty, & u \leq 0, \\
+	\end{array}
+	\right. \label{eq:Barrier}
+\end{align}
+where the barrier parameter $m$ should be higher than 0. The gradient of $f_1(\mathbf{W}_t)$ can then be derived as
+\begin{align}
+	\nabla_{\mathbf{W}_t}f_1(\mathbf{W}_t) & = \sum_{i=1}^K\frac{\mathbf{h}_i^*\mathbf{h}_i}{(\Omega_i\sigma_{cov}^2 + \text{Tr}(\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t)\log\left(1 + \frac{P_t\text{Tr}(\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t)}{\Omega_i\sigma_{cov}^2}\right)} \notag \\
+& + \frac{1}{m}\left(\frac{\mathbf{I}}{1 - \text{Tr}(\mathbf{W}_t)} - \mathbf{W}_t^{-1}\right), \label{eq:GradientF1}
+\end{align}
+where $\mathbf{I}$ is a $N_t\times N_t$ identity matrix.
+
+When we have the transmit beamforming matrix $\mathbf{W}_t$, the searching direction is thus defined as $\Delta \mathbf{W}_t =\nabla_{\mathbf{W}_t}f_1(\mathbf{W}_t)$. As a result, after the $n$-th iteration, the transmit beamforming matrix is updated as $\mathbf{W}_t^{(n+1)} = \mathbf{W}_t^{(n)} + \theta\cdot \Delta \mathbf{W}_t$, where $\theta$, \cbstart is a scalar denoting the searching step. \cbend {\color{red} (Is $\theta$ a scalar or a vector? Please clarify.)} In order to guarantee the accuracy of the gradient descent method {\color{red} (What is the exact terminology? Gradient descent method or subgradient descent method?)}, the optimal searching step is obtained as
+\begin{align}
+	\theta = \arg \min_{\theta} f_1(\mathbf{W}_t - \theta\cdot \Delta \mathbf{W}_t). \label{eq:SearchStepF1}
+\end{align}
+{\color{red} (Why is this minus?)} The gradient-descent method based algorithm for solving the problem (P1-3) is thus detailed in Algorithm 1, which returns us the optimal transmit beamforming matrix $\mathbf{W}_{t,0}^{\dagger}$. Note that, the transmit beamforming matrix $\mathbf{W}_{t}$ in Algorithm 1 can be initialised by the equal gain beamformer $\mathbf{I} / N_t$.
+
+If the resultant minimum total duration $T_{\min}^{D\ddagger}$ of the downlink time-slots is higher than $T_t$, the downlink throughput requirements $\mathbf{D}=\{D_1,\cdots,D_K\}$ cannot be satisfied. This tells us that no feasible resource allocation scheme $\{\mathbf{t}^D, \mathbf{t}^U, \boldsymbol{\rho}, \mathbf{W}_t\}$ exist for maximising the uplink sum-throughput of the UEs. Hence, the H-BS may reject the access request of some UEs in order to find a feasible resource allocation scheme. {\color{red} (Kesi, this mechanism is also very important. Further investigating this issue and finding the optimal rejected UEs may return us a joint resource allocation and access control problem! But this may be left for our future research.)}
+
+Note that Algorithm 1 can also be exploited for solving all the optimisation problem of the transmit beamforming matrix $\mathbf{W}_t$ in this paper, which includes the problems (P1-3), (P3-1) and (P6-2). 
+
+\begin{algorithm}[!t]
+	\caption{The gradient-descent method based algorithm for solving problems (P1-3), (P3-1) and (P6-2)}
+	\footnotesize
+	\begin{algorithmic}[1]
+		\REQUIRE ~~\
+		Path loss of $\{\Omega_1,\cdots,\Omega_K\}$;\
+		Channel fading coefficients of $\{\mathbf{h}_1,\cdots,\mathbf{h}_K\}$;\
+		Transmit power of the H-BS $P_{t}$;\
+		Initial transmit beamforming matrix $\mathbf{W}_t$;
+		Noise power of the passband to baseband converter $\sigma^2_{cov}$;\
+		Duration of the transmission phase $T_t$;\
+		Resource allocation scheme in time- and power-domain $\mathbf{t}^D, \mathbf{t}^U, \boldsymbol{\rho}$ \
+		Error tolerance $\epsilon$.
+		\ENSURE ~~\
+		Optimal transmit beamforming matrix $\mathbf{W}_{t,0}^{\dagger}$; \
+%		\STATE Initialise $\mathbf{W}_t \leftarrow \mathbf{I}/N_t$ (For (P3-1) and (), $\mathbf{W}_{t}$ is initialised by other feasible transmit beamforming matrix.);;
+		\STATE Obtain the searching direction gradient $\Delta{\mathbf{W}_t}\leftarrow \nabla_{\mathbf{W}_t} f_1(y)$ by Eq.\eqref{eq:GradientF1}, or $\Delta{\mathbf{W}_t}\leftarrow\nabla_{\mathbf{W}_t} f_2(y)$ by Eq.\eqref{eq:GradientF2}, or $\Delta{\mathbf{W}_t}\leftarrow\nabla_{\mathbf{W}_t} f_3(y)$ by Eq.\eqref{eq:GradientF3};
+		\WHILE{$||\Delta\mathbf{W}_t||\leq \epsilon$}
+		\STATE Obtain the searching step $\theta$ by solving Eq.\eqref{eq:SearchStepF1}, or by solving Eq.\eqref{eq:SearchStepF2}, or by Eq.\eqref{eq:SearchStepF3};
+		\STATE Update $\mathbf{W}_t = \mathbf{W}_t + \theta \Delta \mathbf{W}_t$;
+		\STATE Obtain the searching direction gradient $\Delta{\mathbf{W}_t}\leftarrow \nabla_{\mathbf{W}_t} f_1(y)$ by Eq.\eqref{eq:GradientF1}, or $\Delta{\mathbf{W}_t}\leftarrow\nabla_{\mathbf{W}_t} f_2(y)$ by Eq.\eqref{eq:GradientF2}, or $\Delta{\mathbf{W}_t}\leftarrow\nabla_{\mathbf{W}_t} f_3(y)$ by Eq.\eqref{eq:GradientF3}.
+		\ENDWHILE
+		\RETURN $\mathbf{W}_t^{\dagger} = \mathbf{W}_t$.
+	\end{algorithmic}
+\end{algorithm}
+
+\subsection{Resource Allocation in Time- and Power-Domain}
+
+The sub-problem (P2) is still non-convex, due to the coupled parameters $\mathbf{t}^D$ and $\boldsymbol{\rho}$ induced by Eq.\ref{eq:EHENergy}. By defining $\boldsymbol{\mu} = \{\mu_i = t_i^D(1-\rho_i) | ,i=1,\cdots,K\}$, (P2) is equivalently transformed to the following convex optimisation problem (P2-1), which is formulated as
+\begin{align}
+	\text{(P2-1):} & \max_{\mathbf{t}^D, \mathbf{t}^U, \boldsymbol{\mu}} \sum_{i=1}^K R_{i}^U (\mathbf{t}^D, \mathbf{t}^U, \boldsymbol{\mu} | \mathbf{w}_t) \label{eq:P2-1}\\
+	\text{s.t. }    & R_{i}^D (t_i^D, \mu_i | \mathbf{w}_t) \geq D_i,\ \forall i = 1,\cdots, K, \tag{\ref{eq:P2-1}a} \label{eq:P2-1-a}\\
+					& 0\leq \mu_i \leq t_i^D, \ \forall i = 1,\cdots, K, \text{ and \eqref{eq:SumRate-c}}. \tag{\ref{eq:P2-1}b} \label{eq:P2-1-b}
+\end{align}
+By exploiting the classic Lagrange multiplier method, the corresponding Lagrange function of (P2-1) is derived as
+\begin{align}
+\mathcal{L}(t^D,t^U,\mu,\lambda,\xi) & = \sum_{i=1}^{K}R_i^U(\mathbf{t}^D,t_i^U,\mathbf{\mu} | \mathbf{w}_t) +\lambda[T-\sum_{i=1}^{K}{(t_i^D+t_i^U)}] \notag \\
+& +\sum_{i=1}^{K}\xi_i[R_i^D(t_i^D,\mu_i | \mathbf{w}_t) - D_i],
+\end{align}
+where $\lambda$ and $\xi_i$ are the Lagrange multipliers for the constraints \eqref{eq:SumRate-c} and \eqref{eq:P2-1-a}, respectively. The optimal solution $\{\mathbf{t}^{D\ddagger}, \mathbf{t}^{U\ddagger}, \boldsymbol{\mu}^{\ddagger}\}$ of (P2-1) have to satisfy the following Karush-Kuhn-Tucker (KKT) conditions:
+\begin{align}
+	\left\{
+	\begin{array}{l}
+		\log(1+p_i)-\frac{p_i}{1+p_i}=\lambda \\
+ 		\frac{\sum_{j = 1}^K g_j\gamma_j}{(1 + p_i)\sigma_{cov}^2}+\xi_i[\log(1+q_i) - \frac{q_i}{1+q_i}]=\lambda \\
+		\frac{g_i}{1+y_i} = \xi_i \frac{1}{1+q_i} \\
+	    \sum_{i=1}^K(t_i^{D} + t_i^{U}) = T_t, \\
+        t_i^{D}\log(1 + q_i) = D_i,
+	\end{array}
+	\right. \label{eq:Sum-KKT}
+\end{align}
+for $\forall i = 1,\cdots,K$, where we have  \cbstart $p_i = \frac{\gamma_ig_i\sum_{j=1}^{K}t_j^D-\mu_i}{\sigma_{cov}^2}$ and $q_i = \frac{\mu_i\gamma_i}{t_i^{D}\sigma_{cov}^2}$ \cbend. {\color{red} ($g_i, \gamma_i$ are defined in the previous equation, \eqref{eq:EHENergy} and \eqref{eq:ULRate})} Given a specific value of $\lambda$, the optimal solution can be derived as
+\begin{align}
+	\left\{
+	\begin{array}{l}
+		t_i^{D\ddagger}=\frac{D_i}{\log(1+q_i^\ddagger)}, \\
+		t_i^{U\ddagger}=h_i\gamma_i\frac{\sum_{j=1}^K{t_j^{D\ddagger}}-\mu_i^\ddagger}{p_i^\ddagger\sigma_{cov}^2},\\
+        \mu_i^\ddagger=\frac{q_i^\ddagger\sigma_{cov}^2}{\gamma_i t_i^{D\ddagger}}, \\
+	\end{array}
+	\right. \label{eq:Sum-Opt}
+\end{align}
+where $p_{i}^{\ddagger}$ and $q_{i}^{\ddagger}$ can be obtained by solving the following system of equations:
+\begin{align}
+	&\log(1+p_i)-\frac{p_i}{1+p_i}=\lambda, \label{eq:ppp} \\
+	&(1+q_i)\log(1+q_i) - q_i=\frac{\lambda(1+p_i) - \sum_{j=1}^{K}\frac{g_j\gamma_j}{\sigma^2}}{g_i}, \label{eq:qqq}
+\end{align}
+The left-hand side of Eq.\eqref{eq:ppp} is a monotonously increasing function of $p_i$, while the left-hand side of Eq.\eqref{eq:qqq} is a monotonously increasing function of $q_i$. Observe from their respective right-hand side that both $p_i$ and $q_i$ monotonously increase as we increase $\lambda$. \cbstart Note that $q_i$ is positive, which determines that the right side of Eq. \eqref{eq:qqq} should be greater than zero. Furthermore, increasing $\lambda$ leads to the increment of the right side of Eq. \eqref{eq:qqq}. Therefore, if the right side of Eq. \eqref{eq:qqq} is less than zero, we increase $\lambda$. \cbend{\color{red} (What is the parameter $m$? Have you already used it anywhere?)}. The details of the binary search based algorithm is provided in Algorithm 2. {\color{red} (In Line 6 (or Line 5 of your original version), why do we have to guarantee this inequality? Please carefully check whether the description of this algorithm is correct or not.)} 
+
+\begin{algorithm}[!t]
+	\caption{A binary search based algorithm for solving (P2-1).}
+	\footnotesize
+	\begin{algorithmic}[1]
+		\REQUIRE ~~\
+		Path loss of $\{\Omega_1,\cdots,\Omega_K\}$;\
+		Channel fading coefficients of $\{\mathbf{h}_1,\cdots,\mathbf{h}_K\}$;\
+		Transmit power of the H-BS $P_{t}$;\
+		Transmit beamforming matrix $\mathbf{W}_t$;\
+		Noise power of the passband to baseband converter $\sigma^2_{cov}$;\
+		Duration of the transmission phase $T_t$;\
+		Error tolerance $\epsilon$.
+		\ENSURE ~~\
+		Optimal resource allocation scheme $\{\mathbf{t}^{D\ddagger}, \mathbf{t}^{U\ddagger}, \boldsymbol{\rho}^{\ddagger}\}$ in time- and power-domain.
+		\STATE Initialise $\lambda_{\min}\leftarrow 0$, $\lambda_{\max}\leftarrow \text{A sufficiently large value}$;
+		\WHILE{$\lambda_{\max} - \lambda_{\min} > \epsilon$}
+			\STATE Update $\lambda_{mid} \leftarrow \frac{1}{2}(\lambda_{\max} + \lambda_{\min})$;
+			\STATE Obtain $\mathbf{p}^{\ddagger} \leftarrow \{p_1^{\ddagger}, \cdots, p_K^{\ddagger}\}$ by substituting $\lambda_{mid}$ into Eq.\eqref{eq:ppp};
+			\IF{$\lambda_{mid}(1+p_i^{\ddagger}) - \sum_{j=1}^{K}\frac{g_j\gamma_j}{\sigma_{cov}^2} > 0$ for i = 1:$K$}
+				\STATE Obtain $\mathbf{q}^{\ddagger} \leftarrow \{q_1^{\ddagger}, \cdots, q_K^{\ddagger}\}$ by substituting $\lambda_{mid}$ and $\mathbf{p}^{\ddagger}$ into Eq.\eqref{eq:qqq};
+				\STATE Obtain $\{\mathbf{t}^{D\ddagger}, \mathbf{t}^{U\ddagger}, \boldsymbol{\mu}^{\ddagger}\}$ by substituting $\mathbf{p}^{\ddagger}$ and $\mathbf{q}^{\ddagger}$ into Eq.\eqref{eq:Sum-Opt}
+				\IF{$\sum_{i=1}^Kt_i^{D\ddagger} + t_i^{U\ddagger}\leq T_t$} 
+					\STATE Update $\lambda_{\max} \leftarrow \lambda_{mid}$;
+				\ELSE 
+					\STATE Update $\lambda_{\min} \leftarrow \lambda_{mid}$;
+				\ENDIF
+			\ELSE
+					\STATE Update $\lambda_{\min}\leftarrow\lambda_{mid}$;
+			\ENDIF
+		\ENDWHILE
+		\STATE Obtain $\boldsymbol{\rho}^{\ddagger} \leftarrow \{\rho_i^{\ddagger} = \frac{\mu_i^{\ddagger}}{t_i^{D\ddagger}} | i=1,\cdots, K\}$ ;
+		\RETURN $\{\mathbf{t}^{D\ddagger}, \mathbf{t}^{U\ddagger}, \boldsymbol{\rho}^{\ddagger}\}$
+	\end{algorithmic}
+\end{algorithm}
+
+
+\subsection{Resource Allocation in Spatial-Domain}
+
+After relaxing the rank constraint, the sub-problem (P3) is transformed into a convex optimisation problem. Similarly to P(1-1), we also exploit the interior point method for efficiently solving this convex problem. Then the original constrained problem P(3) is reformulated as the following unconstrained problem:
+\begin{align}
+	\text{(P3-1): } \max_{\mathbf{W}_t} f_2(\mathbf{W}_t) = &\sum_{i=1}^{K} \left[R_{i}^U (\mathbf{W}_t | \mathbf{t}^D, t_i^U, \boldsymbol{\rho}) + \phi(\text{Tr}(\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t)-a_i)\right] \nonumber \\
+	& + \phi(1-Tr(\mathbf{W}_t)) + \phi(\text{det}(\mathbf{W}_t)), \label{eq:P3-1}
+\end{align}
+where $\phi(u)$ is the logarithmic barrier function given by Eq.\eqref{eq:Barrier}. Furthermore, the parameter $a_i$ in (P3-1) is given by
+\begin{align}
+	a_i = \frac{\sigma_{cov}^2}{\rho_i \Omega_i}(e^{\frac{D_i}{t^D_i}} - 1),
+\end{align}
+for $\forall i$. The unconstrained problem (P3-1) can thus be solved by exploiting the gradient descent method. Given a feasible $\mathbf{W}_t$, the gradient of $f_2(\mathbf{W}_t)$ can be derived as
+\begin{align}
+	\nabla_{\mathbf{W}_t}f_2(\mathbf{W}_t) = & \frac{1}{m}\left(\sum_{i=1}^{K}\frac{\mathbf{h}_i^*\mathbf{h}_i}{\text{Tr}(\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t) - a_i} - \frac{\mathbf{I}}{1 - \mathrm{Tr}(\mathbf{W}_t)} + \mathbf{W}_t^{-1}\right) \nonumber \\
+	& + \sum_{i=1}^K\frac{t_i^Ub_i \mathbf{h}_i^*\mathbf{h}_i}{1 +  b_i\text{Tr}(\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t)}, \label{eq:GradientF2}
+\end{align}
+{\color{red} (Kesi, is $\text{Tr}(\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t)$ in Eq.\eqref{eq:GradientF2} correct? Should it be expressed as $\text{Tr}(\mathbf{h}_i\mathbf{W}_t\mathbf{h}_i^*)$? However, in this case, we may obtain a scalar by calculating $\mathbf{h}_i\mathbf{W}_t\mathbf{h}_i^*$. Therefore, it dose not have any sense to take the trace operation $\text{Tr}(\cdot)$. Or using this equation may simplify the following matrix derivative? Please clarify. )} where $\mathbf{I}$ is an $N_t\times N_t$ identity matrix and the parameter $b_i$ is expressed as
+\begin{align}
+	b_i = \frac{\Omega_ig_i(\sum_{j=1}^{K}t_j^D - t_i^D\rho_i)}{t_i^U\sigma_{cov}^2}, \label{eq:Bi}
+\end{align}
+where $g_i = ....$. The optimal searching step is obtained as
+\begin{align}
+	\theta = \arg \min_{\theta} f_2(\mathbf{W}_t + \theta\cdot \Delta \mathbf{W}_t), \label{eq:SearchStepF2}
+\end{align}
+where $\Delta \mathbf{W}_t = \nabla_{\mathbf{W}_t}f_2(\mathbf{W}_t)$ is the searching direction. Therefore, the optimal transmit beamforming matrix $\mathbf{W}_{t}^{\ddagger}$ in the spatial domain can be then obtained by exploiting Algorithm 1. \cbstart \cbend
+
+\subsection{SCA based Algorithm}
+
+The sub-optimal resource allocation scheme $\{\mathbf{t}^{D\dagger}, \mathbf{t}^{U\dagger}, \boldsymbol{\rho}^{\dagger}, \mathbf{W}_t^{\dagger}\}$ to (P1) can then be obtained by alternatively solving (P2-1) and (P3-1), which is detailed in Algorithm 3. {\color{red} (Please characterise the complexity.)}  Note that the existence of a feasible resource allocation scheme to (P1) is validated by solving (P1-2) in Algorithm 1. This may substantially increase the robustness of the SCA based Algorithm 3.
+
+\begin{algorithm}[!t]
+	\caption{SCA based algorithm for solving (P1)}
+	\footnotesize
+	\begin{algorithmic}[1]
+		\REQUIRE ~~\
+		Path loss of $\{\Omega_1,\cdots,\Omega_K\}$;\
+		Channel fading coefficients of $\{\mathbf{h}_1,\cdots,\mathbf{h}_K\}$;\
+		Transmit power of the H-BS $P_{t}$;\
+		Noise power of the passband to baseband converter $\sigma^2_{cov}$;\
+		Duration of the transmission phase $T_t$;\
+		Error tolerance $\epsilon$.
+		\ENSURE ~~\
+		The sub-optimal resource allocation scheme $\{\mathbf{t}^{D\dagger}, \mathbf{t}^{U\dagger}, \boldsymbol{\rho}^{\dagger}, \mathbf{W}_t^{\dagger}\}$ in time- power- and spatial-domain;\
+		The resultant uplink sum-throughput $R_{\text{sum}}^{\dagger}$.
+		\STATE Initialise the transmit beamforming matrix $\mathbf{W}_t\leftarrow \mathbf{I} / N_t$ in Algorithm 1;
+		\STATE Obtain a feasible transmit beamforming matrix $\mathbf{W}_{t,0}^{\ddagger}$ and the resultant minimum total duration $T_{\min}^{D\ddagger}$ of the downlink time-slots by solving (P1-3) based on Algorithm 1;
+		\IF{$T_{\min}^{D\ddagger} < T_t$}
+			\STATE Initialise an uplink sum-throughput recorder $R_{\text{sum},0}\leftarrow 0$;
+			\STATE Initialise another uplink sum-throughput recorder $R_{\text{sum},1}\leftarrow 2\epsilon$;
+			\STATE Initialise the transmit beamforming matrix $\mathbf{W}_t\leftarrow \mathbf{W}_{t,0}^{\ddagger}$ in Algorithm 2 for solving (P2-1);
+			\STATE Initialise the transmit beamforming matrix $\mathbf{W}_t\leftarrow \mathbf{W}_{t,0}^{\ddagger}$ in Algorithm 1 for solving (P3-1);
+			\WHILE{$R_{\text{sum},1} - R_{\text{sum},0}> \epsilon$}
+				\STATE Update $R_{\text{sum},0}\leftarrow R_{\text{sum},1}$;
+				\STATE Obtain the optimal solution $\{\mathbf{t}^{D\ddagger}, \mathbf{t}^{U\ddagger}, \boldsymbol{\rho}^{\ddagger}\}$ to (P2-1) based on Algorithm 2;
+				\STATE Update $\{\mathbf{t}^{D}, \mathbf{t}^{U}, \boldsymbol{\rho}\}\leftarrow \{\mathbf{t}^{D\ddagger}, \mathbf{t}^{U\ddagger}, \boldsymbol{\rho}^{\ddagger}\}$ in Algorithm 1 for solving (P3-1);
+				\STATE Obtain the optimal solution $\mathbf{W}_t^{\ddagger}$ to (P3-1) and the resultant uplink sum-throughput $R_{\text{sum}}^{\ddagger}$ based on Algorithm 1;
+				\STATE Update $R_{\text{sum},1}\leftarrow R_{\text{sum}}^{\ddagger}$;
+				\STATE Update $\mathbf{W}_t \leftarrow \mathbf{W}_t^{\ddagger}$ in Algorithm 1 for solving (P3-1) and in Algorithm 2 for solving (P2-1);
+			\ENDWHILE
+			\STATE Update $\{\mathbf{t}^{D\dagger}, \mathbf{t}^{U\dagger}, \boldsymbol{\rho}^{\dagger}, \mathbf{W}_t^{\dagger}\} \leftarrow \{\mathbf{t}^{D\ddagger}, \mathbf{t}^{U\ddagger}, \boldsymbol{\rho}^{\ddagger}, \mathbf{W}_t^{\ddagger}\}$, $R_{\text{sum}}^{\dagger}\leftarrow R_{\text{sum}}^{\ddagger}$;
+		\ELSE
+			\STATE No feasible resource allocation scheme.
+		\ENDIF
+		\RETURN $\{\mathbf{t}^{D\dagger}, \mathbf{t}^{U\dagger}, \boldsymbol{\rho}^{\dagger}, \mathbf{W}_t^{\dagger}\}$ and $R_{\text{sum}}^{\dagger}$.
+	\end{algorithmic}
+\end{algorithm}
+
+\section{Uplink Fair-throughput maximization}
+
+The UEs in the vicinity of the BS have good uplink channels for satisfying their data uploading requirements. The improvement of their uplink throughputs is substantial, when more resources are allocated to these UEs. However, the poor channels connecting the distant UEs to the BS largely restricts their uplink throughputs. Even if more resources are allocated these UEs, the improvement of their uplink throughputs is limited. As a result, in order to maximise the uplink sum-throughput, the BS may allocate more resources to the UEs in its vicinity, since it may results in substantial growth of the sum-throughput, while the data uploading requests of the distant UEs may be largely ignored by the BS. This is the classic ``near-far effect'' of the multi-user WIT system \cite{wpcn_1}.
+
+In the WPCN, the uplink transmission of the UEs is constrained by the energy harvested from the downlink RF signals transmitted by the H-BS, as expressed in Eq.\eqref{eq:ULRate}. The ``near-far effect'' is doubled by the difference of the channel quality. The UEs in the vicinity of the H-BS may harvest more energy from the downlinks than their distant counterparts, which further increase the gap between their uploading capabilities. Therefore, the H-BS is more willing to allocate resource to its nearby UEs, which results in the ``doubly near-far effect'' \cite{wpcn_1}. 
+
+In order to overcome the unfairness incurred by the ``doubly near-far effect'', we aim for maximising the uplink \textit{fair-throughput} in our DEIN, which is defined as the minimum uplink throughput among the UEs. As a result, the uplink fair-throughput maximisation problem is formulated as
+\begin{align}
+	\text{(P4): } & \max_{\mathbf{t}^D, \mathbf{t}^U, \boldsymbol{\rho}, \mathbf{w}_t} R_{\text{fair}} \label{eq:FairRate} \\
+	\text{s.t. } & R_i^U(\mathbf{t}^D,t_i^U,\rho_i,\mathbf{w}_t) \geq R_{\text{fair}}, \forall i = 1,\cdots,K, \tag{\ref{eq:FairRate}a}, \label{eq:FairRate-a}\\
+	& R_i^D(t_i^D,\rho_i, \mathbf{w}_t) \geq D_i, \forall i=1,\cdots,K, \tag{\ref{eq:FairRate}b} \label{eq:FairRate-b} \\
+	&0 \leq \rho_i \leq 1, \forall i=1,\cdots,K,\tag{\ref{eq:FairRate}c} \label{eq:FairRate-c} \\
+	&\sum_{i=1}^{K}{(t_i^D+t_i^U)}\leq T, \tag{\ref{eq:FairRate}d} \label{eq:FairRate-d}\\
+	&\text{Tr}(\mathbf{w}_t\mathbf{w}_t^*) \leq 1. \tag{\ref{eq:FairRate}e} \label{eq:FairRate-e}
+\end{align}
+As expressed in the objective \eqref{eq:FairRate}, (P4) aims for maximising the uplink fair-throughput $R_{\text{fair}}$ by optimising the downlink time-slots $\mathbf{t}^D$, the uplink time-slots $\mathbf{t}^{U}$ and the power splitting ratios $\boldsymbol{\rho}$ of the UEs as well as the transmit beamformer $\mathbf{w}_t$ of the H-BS. The constraint \eqref{eq:FairRate-a} defines the uplink fair-throughput $R_{\text{fair}}$, which is not higher than the uplink throughput of every UE. Other constraints are the same as our uplink sum-throughput maximisation problem (P1). Furthermore, based on the SDR method, we also relax the inherent rank constraint of \eqref{eq:FairRate-e} by letting $\mathbf{W}_t = \mathbf{w}_t\mathbf{w}_t^*$ and by substituting \eqref{eq:FairRate-e} with $\text{Tr}(\mathbf{W}_t) \leq 1$.
+
+Unfortunately, the relaxed problem (P4) is still non-convex, due to the coupled parameters ${\mathbf{t}^D, \mathbf{t}^U, \boldsymbol{\rho}, \mathbf{W}_t}$. By exploiting the classic SCA method, the relaxed problem (P4) can be decomposed into the following pair of sub-problems. Given a feasible transmit beamforming matrix $\mathbf{W}_t$ satisfying $\text{Tr}(\mathbf{W}_t)\leq 1$, the first sub-problem aims for maximising the uplink fair-throughput by finding the optimal resource allocation scheme $\{\mathbf{t}^{D\ddagger}, \mathbf{t}^{U\ddagger}, \boldsymbol{\rho}^{\ddagger} | \mathbf{W}_t\}$ in the time- and power-domain, which is formulated as
+\begin{align}
+	\text{(P5): } & \max_{\mathbf{t}^D, \mathbf{t}^U, \boldsymbol{\rho}} R_{\text{fair}} \label{eq:P5} \\
+	\text{s.t. } & R_i^U(\mathbf{t}^D,t_i^U,\rho_i | \mathbf{W}_t) \geq R_{\text{fair}}, \forall i = 1,\cdots,K, \tag{\ref{eq:P5}a}, \label{eq:P5-a}\\
+	& R_i^D(t_i^D,\rho_i | \mathbf{W}_t) \geq D_i, \forall i=1,\cdots,K, \tag{\ref{eq:P5}b} \label{eq:P5-b} \\
+	& \text{\eqref{eq:FairRate-c} and \eqref{eq:FairRate-d}}.
+\end{align}
+Given a feasible resource allocation scheme $\{\mathbf{t}^{D}, \mathbf{t}^{U}, \boldsymbol{\rho}\}$ in the time- and power-domain satisfying the constraints \eqref{eq:FairRate-c} and \eqref{eq:FairRate-d}, the second sub-problem aims for maximising the uplink fair-throughput by finding the optimal transmit beamforming matrix $\{\mathbf{W}_t^{\ddagger} | \mathbf{t}^{D}, \mathbf{t}^{U}, \boldsymbol{\rho}\}$ in the spatial-domain, which is formulated as
+\begin{align}
+	\text{(P6): } & \max_{\mathbf{W}_t} R_{\text{fair}} \label{eq:P6} \\
+	\text{s.t. } & R_i^U(\mathbf{W}_t | \mathbf{t}^D,t_i^U,\rho_i) \geq R_{\text{fair}}, \forall i = 1,\cdots,K, \tag{\ref{eq:P6}a} \label{eq:P6-a}\\
+	& R_i^D(\mathbf{W}_t | t_i^D,\rho_i) \geq D_i, \forall i=1,\cdots,K, \tag{\ref{eq:P6}b} \label{eq:P6-b} \\
+	&\text{Tr}(\mathbf{W}_t) \leq 1. \tag{\ref{eq:P6}c} \label{eq:P6-c}
+\end{align}
+
+Moreover, the existence of the optimal resource allocation scheme for maximising the uplink fair-throughput $R_{\text{fail}}$ can also be validated by exploiting the methodology introduced in Section III-A. The resultant transmit beamforming matrix $\mathbf{W}_{t,0}^{\ddagger}$ can also be relied upon for initialising the iterative algorithm for solving (P4), which will be detailed in Section IV-C. 
+
+In the rest of this section, we will elaborate on how we jointly solve (P5) and (P6) in order to obtain the sub-optimal resource allocation scheme $\{\mathbf{t}^{D\dagger}, \mathbf{t}^{U\dagger}, \boldsymbol{\rho}^\dagger, \mathbf{W}_t^\dagger\}$.
+
+
+\subsection{Resource Allocation in Time- and Power-Domain}
+
+The sub-problem (P5) is still non-convex, due to the coupled parameters $\mathbf{t}^D$ and $\boldsymbol{\rho}$. We then introduce a set of new parameters $\mathbf{\mu} = \{\mu_i = t_i^D\rho_i | i=1,\cdots,K\}$ and reformulate (P5) as
+\begin{align}
+	\text{(P5-1):} & \max_{\mathbf{t}^D, \mathbf{t}^U, \boldsymbol{\mu}} R_{\text{fair}} \label{eq:P5-1} \\
+	\text{s. t. } & R_i^U(\mathbf{t}^D,t_i^U,\mu_i | \mathbf{W}_t) \geq R_{\text{fair}}, \forall i = 1,\cdots,K, \tag{\ref{eq:P5-1}a}, \label{eq:P5-1-a}\\
+	& R_i^D(t_i^D,\mu_i | \mathbf{W}_t) \geq D_i, \forall i=1,\cdots,K, \tag{\ref{eq:P5-1}b} \label{eq:P5-1-b} \\
+	& 0 \leq \mu_i \leq t_i^D, \forall i=1,\cdots,K, \tag{\ref{eq:P5-1}c} \label{eq:P5-1-c} \\
+	& \sum_{i=1}^{K}{(t_i^D+t_i^U)}\leq T_t. \tag{\ref{eq:P5-1}d} \label{eq:P5-1-d}
+\end{align}
+Since both the objective \eqref{eq:P5-1} and the constraints \eqref{eq:P5-1-a}-\eqref{eq:P5-1-d} are either convex or affine with respect to $\{\mathbf{t}^D, \mathbf{t}^U, \boldsymbol{\mu}\}$, (P5-1) is a convex optimisation problem. Note that the downlink throughput $R_i^D(t_i^D,\mu_i | \mathbf{W}_t)$ is a monotonously increasing function of $t_i^D$, while the uplink throughput $R_i^U(\mathbf{t}^D,t_i^U,\mu_i | \mathbf{W}_t)$ is also a monotonously increasing function of $\mathbf{t}_D$ and $t_i^U$. As a result, increasing the duration of the actual transmission phase $T_t' = \sum_{i=1}^{K}{(t_i^D+t_i^U)}$ may increase the fair throughput $R_{\text{fair}}$. In order to reduce the complexity of directly solving (P5-1), given a specific $R_{\text{fair}}$, we formulate the following convex optimisation problem:
+\begin{align}
+	\text{(P5-2): } &\min_{\mathbf{t}^D, \mathbf{t}^U, \boldsymbol{\mu}} T_t' = \sum_{i=1}^{K}{(t_i^D+t_i^U)}, \label{eq:P5-2} \\
+	\text{s. t. } & \text{\eqref{eq:P5-1-a}, \eqref{eq:P5-1-b} and \eqref{eq:P5-1-c}}. \nonumber
+\end{align}
+If the resultant minimum duration of the actual transmission phase $T_{t,\min}'$ is higher than $T_t$, the current fair-throughput $R_{\text{fair}}$ is not feasible and it has to be reduced. By contrast, if we have $T_{t,\min}' < T_t$, the current fair-throughput $R_{\text{fair}}$ is feasible but it has to be increased in order to achieve its maximum. Let us now focus on the details of maximising $R_{\text{fair}}$.
+
+By exploiting the Lagrange multiplier method, the Lagrange function of (P5-2) can be formulated as
+\begin{align}
+	\mathcal{L}(\mathbf{t}^D,\mathbf{t}^U,\boldsymbol{\mu},\boldsymbol{\lambda},\boldsymbol{\xi}) = &\sum_{i=1}^{K}{(t_i^D+t_i^U)} +\sum_{i=1}^{K}{\lambda_{i}[R_{\text{fair}}-R_i^U(\mathbf{t}^D,t_i^U,\mu_i | \mathbf{W}_t)]} \nonumber \\
+& +\sum_{i=1}^{K}\xi_i[D_i-R_i^D(t_i^D,\mu_i | \mathbf{W}_t)],
+\end{align}
+where $\boldsymbol{\lambda} = \{\lambda_i | i=1,\cdots,K\}$ and $\boldsymbol{\xi} = \{\xi_i | i = 1,\cdots,K\}$ are the Lagrange multipliers correspond to the constraints \eqref{eq:P5-1-a} and \eqref{eq:P5-1-b}. Given a specific range of $\boldsymbol{\lambda}$, the optimal solution $\{\mathbf{t}^{D'}, \mathbf{t}^{U'}, \boldsymbol{\mu}'\}$ of (P5-2) has to satisfy the same KKT conditions given by Eq.\eqref{eq:Sum-KKT} and thus they can be expressed as Eq.\eqref{eq:Sum-Opt}. However, the parameters $p_i$ and $q_i$ have different relationships with $\boldsymbol{\lambda}$, which are expressed as
+
+\begin{align}
+	 \log(1+p_i)-\frac{p_i}{1+p_i}&=\frac{1}{\lambda_i}, \label{eq:fair_p}\\ 
+ (1+q_i)\log(1+q_i)-q_i&=\frac{1+p_i}{\lambda_i g_i}-\frac{\sum_{j \neq i}\lambda_j\gamma_jg_j}{\lambda_ig_i}. \label{eq:fair_q}
+\end{align}
+\cbstart check and revised \cbend
+{\color{red}(Please carefully check the above two equations by substituting the newly defined parameters into them.)} Therefore, the optimal pair of $p_i^{\ddagger}$ and $q_i^{\ddagger}$ can be derived by solving Eqs.\ref{eq:fair_p} and \eqref{eq:fair_q}. Similar to Eqs.\eqref{eq:ppp} and \eqref{eq:qqq}, the parameters $p_i$ and $q_i$ are also monotonously increasing with respect to the corresponding $\lambda_i$. As a result, the optimal pair $\{p_i^{\ddagger},q_i^{\ddagger}\}$ can be obtained by invoking the classic bisection method on Eqs.\ref{eq:fair_p} and \eqref{eq:fair_q}, respectively. 
+
+Furthermore, the sub-gradient of the Lagrange function $\mathcal{L}(\mathbf{t}^{D\ddagger},\mathbf{t}^{U\ddagger},\boldsymbol{\mu}^{\ddagger},\boldsymbol{\lambda},\boldsymbol{\xi})$ with respect to $\boldsymbol{\lambda}$ is denoted as $\boldsymbol{\delta} = \{\delta_i| i=1,\cdots,K\}$, whose $i$-th element is expressed as
+\begin{align}
+	\delta_i = \frac{\partial\mathcal{L}}{\partial \lambda_i} = t_i^{U\ddagger} \log(1+p_i^{\ddagger}) - R_{\text{fair}}. \label{eq:fair-sg}
+\end{align}
+After the $n$-th iteration, the Lagrange multiplier set is updated as $\boldsymbol{\lambda}^{(n+1)} = \boldsymbol{\lambda}^{(n)} - \Delta_{\boldsymbol{\lambda}} \boldsymbol{\delta}$ {\color{red} (Why is this a minus sign, not a plus sign?)}, where $\Delta_{\boldsymbol{\lambda}}$ is the searching step. The iteration for obtaining the optimal Lagrange multiplier set $\boldsymbol{\lambda}^{\ddagger}$ completes until we have $|\boldsymbol{\delta}| \leq \epsilon_{\boldsymbol{\delta}}$, where $\epsilon_{\boldsymbol{\delta}}$ represents the absolute error tolerance on the sub-gradient.  
+
+We firstly initialise $R_{\text{fair}}$ of (P5-2) with an arbitrary value. After solving (P5-2), we obtain the minimum duration of the transmission phase $T_{\min, t}'$. If we have $T_{\min, t}' < T_t$, we have to increase $R_{\text{fair}}$ and solve (P5-2) again.  If we have $T_{\min, t}' > T_t$, we have to increase $R_{\text{fair}}$ and solve (P5-2) again. The binary searching based algorithm is exploited for finding the optimal fair-throughput $R_{\text{fair}}^{\ddagger}$. The details of the algorithm for solving (P5-1) is provided in Algorithm 4. {\color{red} (Please characterise the complexity, is it $K\log m$?)}
+
+\begin{algorithm}[!t]
+	\caption{The binary searching based algorithm for solving (P5-1)}
+	\footnotesize
+	\begin{algorithmic}[1]
+		\REQUIRE ~~\
+		Path loss of $\{\Omega_1,\cdots,\Omega_K\}$;\
+		Channel fading coefficients of $\{\mathbf{h}_1,\cdots,\mathbf{h}_K\}$;\
+		Transmit power of the H-BS $P_{t}$;\
+		Feasible Transmit beamforming matrix $\mathbf{W}_t$;\
+		Noise power of the passband to baseband converter $\sigma^2_{cov}$;\
+		Duration of the transmission phase $T_t$;\
+		Searching step for the Lagrange multipliers $\Delta_{\boldsymbol{\lambda}}$;
+		Error tolerance $\epsilon_{\boldsymbol{\delta}}$ and $\epsilon_{r}$.
+		\ENSURE ~~\
+		Optimal resource allocation scheme $\{\mathbf{t}^{D\ddagger}, \mathbf{t}^{U\ddagger}, \boldsymbol{\rho}^{\ddagger}\}$ in time- and power-domain; \
+		Optimal fair-throughput $R_{\text{fair}}^{\ddagger}$.
+		\STATE Initialize $R_{\min} \leftarrow 0$ and $R_{max} \leftarrow$ A sufficiently high value;
+		\WHILE{$R_{max}-R_{min} > \epsilon_r$}
+			\STATE Initialise the fair throughput $R_{\text{fair}} \leftarrow \frac{R_{\max} + R_{\min}}{2}$;
+			\STATE Initialize $\boldsymbol{\lambda}\leftarrow$ An arbitrary vector;
+			\STATE Obtain $\{p_i^{\ddagger} | i =1,\cdots,K\}$ and $\{q_i^{\dagger}| i=1,\cdots,K\}$ by solving Eqs.(\ref{eq:fair_p}) and (\ref{eq:fair_q}) with the aid of the bisection method;
+			\STATE Obtain $\{\mathbf{t}^{D\ddagger}, \mathbf{t}^{U\ddagger}, \boldsymbol{\rho}^{\ddagger}\}$ by Eq.\eqref{eq:Sum-Opt};
+			\STATE Obtain the sub-gradient $\boldsymbol{\delta} = \{\delta_i| i=1,\cdots,K\}$ of the Lagrange function $\mathcal{L}$ by Eq.\eqref{eq:fair-sg};
+			\WHILE{$|\boldsymbol{\delta}| > \epsilon_{\boldsymbol{\delta}}$}
+				\STATE Update $\boldsymbol{\lambda} \leftarrow \boldsymbol{\lambda} - \Delta_{\boldsymbol{\lambda}} \boldsymbol{\delta}$;
+				\STATE Update $\{p_i^{\ddagger} | i =1,\cdots,K\}$ and $\{q_i^{\dagger}| i=1,\cdots,K\}$ by solving Eqs.(\ref{eq:fair_p}) and (\ref{eq:fair_q});
+				\STATE Update $\{\mathbf{t}^{D\ddagger}, \mathbf{t}^{U\ddagger}, \boldsymbol{\rho}^{\ddagger}\}$ by Eq.\eqref{eq:Sum-Opt};
+				\STATE Update the sub-gradient $\boldsymbol{\delta} = \{\delta_i| i=1,\cdots,K\}$ of the Lagrange function $\mathcal{L}$ by Eq.\eqref{eq:fair-sg};
+			\ENDWHILE
+			\STATE Obtain $T_{\min,t}' \leftarrow \sum_{i=1}{K}(t_i^{D\ddagger} + t_i^{U\ddagger})$;
+			\IF{$T_{\min,t}' \leq T_{tra}$}
+				\STATE $R_{\max} = R_{\text{fair}}$;
+			\ELSE
+				\STATE $R_{\min} = R_{\text{fair}}$;
+			\ENDIF	
+		\ENDWHILE
+		\STATE Obtain $\boldsymbol{\rho}^{\ddagger} \leftarrow \{\rho_i^{\ddagger} = \frac{\mu_i^{\ddagger}}{t_i^{D\ddagger}} | i=1,\cdots, K\}$;
+		\RETURN Optimal resource allocation scheme $\{\mathbf{t}^{D\ddagger}, \mathbf{t}^{U\ddagger}, \boldsymbol{\rho}^{\ddagger}\}$ in time- and power-domain and the maximum fair-throughput $R_{\text{fair}}^{\ddagger}$.
+	\end{algorithmic}
+\end{algorithm}
+
+\subsection{Resource Allocation in Spatial-Domain}
+
+Given a specific resource allocation scheme $\{\mathbf{t}^{D}, \mathbf{t}^{U}, \boldsymbol{\rho}\}$, the fair-throughput maximisation problem problem \eqref{eq:P6} is convex with respect to the transmit beamforming matrix $\mathbf{W}_t$, after the SDR.  Note that the uplink throughput $R_i^U(\mathbf{W}_t | \mathbf{t}^D,t_i^U,\rho_i)$ is a monotonously increasing function of $\text{Tr}(\mathbf{W}_t)$ and so is the downlink throughput $R_i^D(\mathbf{W}_t | \mathbf{t}^D,t_i^U,\rho_i)$. As a result, increasing the normalised power weights $\text{Tr}(\mathbf{W}_t)$ of the transmit antennas is capable of increasing the uplink fair-throughput $R_{\text{fair}}$. Similar to the formulation of (P5-2), given a specific $R_{\text{fair}}$, the following convex optimisation problem is formulated:
+\begin{align}
+	\text{(P6-1): } &\min_{\mathbf{W}_t} P_{t,norm}' = \text{Tr}(\mathbf{W}_t) \label{eq:P6-1} \\
+	\text{s. t. } & \text{\eqref{eq:P6-a} and \eqref{eq:P6-b}} \nonumber
+\end{align}
+
+The problem (P6-1) can be solved by invoking the interior-point method, as we have done for solving (P1-2) and (P3-1). We then transform the original constrained problem (P6-1) to the following unconstrained problem (P6-2):
+\begin{align}
+	\text{(P6-2): }  \min_{\mathbf{W}_t} f_3(\mathbf{W}_t) = &\text{Tr}(\mathbf{W}_t) - \phi(\text{Det}(\mathbf{W}_t)) - \sum_{i=1}^{K}\phi\left(\text{Tr}(\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t) - a_i\right) \nonumber\\
+	& - \sum_{i=1}^{K}\phi\left(\text{Tr}(\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t) - c_i\right). \label{eq:F3}
+\end{align}
+In Eq.\eqref{eq:F3}, we have $c_i = (e^{\frac{R_{\text{fair}}}{t_i^U}} - 1)b_i$, where $b_i$ has been defined in Eq.\eqref{eq:Bi}. The unconstrained problem (P6-2) can thus be solved by exploiting the gradient descent method. Given a feasible $\mathbf{W}_t$, the gradient of $f_3(\mathbf{W}_t)$ can be derived as
+\begin{align}
+	\nabla_{\mathbf{W}_t}f_3(\mathbf{W}_t) &= \mathbf{I} - \frac{1}{m}\left[\mathbf{W}_t + \sum_{i=1}^K\left(\frac{\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t}{\text{Tr}(\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t)-a_i} + \frac{\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t}{\text{Tr}(\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t)-c_i}\right)\right]. \label{eq:GradientF3}
+\end{align}
+{\color{red} (Kesi, why do we have the term $\text{Tr}(\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t)$ in Eq.\eqref{eq:F3}, but the term $\text{Tr}(\mathbf{h}_i^*\mathbf{h}_i\mathbf{W}_t)$ in Eq.\eqref{eq:GradientF3}? The product of $\mathbf{h}_i^*\mathbf{h}_i$ is a scalar according to our parameter definitions.)} The optimal searching step is obtained as
+\begin{align}
+	\theta = \arg \min_{\theta} f_3(\mathbf{W}_t + \theta\cdot \Delta \mathbf{W}_t), \label{eq:SearchStepF3}
+\end{align}
+where $\Delta \mathbf{W}_t = \nabla_{\mathbf{W}_t}f_3(\mathbf{W}_t)$ is the searching direction. Therefore, the optimal transmit beamforming matrix $\mathbf{W}_{t}^{'\ddagger}$ in the spatial domain and the resultant $P_{\min, t,norm}' = \text{Tr}(\mathbf{W}_{t}^{'\ddagger})$ of (P6-1) can be then obtained by exploiting Algorithm 1. {\color{red} (Please characterise the complexity.)}
+
+The binary searching based method is then invoked for finding the If we have $P_{\min, t,norm}' < 1$, we may increase $R_{\text{fair}}$ to better utilise the spatial-domain resource. If we have $P_{\min, t,norm}' > 1$, we may reduce $R_{\text{fair}}$ because the spatial-domain resource cannot satisfy this high fair-throughput requirement. The binary searching based method can be then exploited for finding the optimal fair-throughput $R_{\text{fair}}^{\ddagger}$, which is detailed in Algorithm 5. 
+
+\begin{algorithm}[!t]
+	\caption{The binary searching based method for solving (P6)}
+	\footnotesize
+	\begin{algorithmic}[1]
+		\REQUIRE ~~\
+		Path loss of $\{\Omega_1,\cdots,\Omega_K\}$;\
+		Channel fading coefficients of $\{\mathbf{h}_1,\cdots,\mathbf{h}_K\}$;\
+		Transmit power of the H-BS $P_{t}$;\		
+		Noise power of the passband to baseband converter $\sigma^2_{cov}$;\
+		Duration of the transmission phase $T_t$;\
+		Environment settings; \
+		Feasible Transmit beamforming matrix $\mathbf{W}_t$;\
+		Resource allocation scheme $\{\mathbf{t}^{D}, \mathbf{t}^{U\ddagger}, \boldsymbol{\rho}^{\ddagger}\}$ in time- and power-domain
+		Error tolerance $\epsilon$.
+		\ENSURE ~~\
+		Optimal transmit beamforming matrix $\mathbf{W}_t^{\ddagger}$; \
+		Maximum fair-throughput $R_{\text{fair}}^{\ddagger}$.
+		\STATE Initialise $R_{\min}\leftarrow 0$ and $R_{\max}\leftarrow$ a sufficiently high value;
+		\STATE Initialise $\mathbf{W}_t^{\ddagger} \leftarrow \mathbf{W}_t$;
+		\WHILE{$R_{\max} - R_{\min} > \epsilon$}
+			\STATE Update $R_{\text{fair}}^{\ddagger} \leftarrow \frac{R_{\max} + R_{\min}}{2}$.
+			\STATE Update $\mathbf{W}_t^{\ddagger}$ by solving (P6-2) with the aid of Algorithm 1;
+			\IF {$\text{Tr}(\mathbf{W}_t^{\ddagger}) > 1$}
+				\STATE Update $R_{\max} \leftarrow R_{\text{fair}}$
+			\ELSE
+				\STATE Update $R_{\min} \leftarrow R_{\text{fair}}$
+			\ENDIF
+		\ENDWHILE
+		\RETURN Optimal transmit beamforming matrix $\mathbf{W}_t^{\ddagger}$ and the resultant optimal fair-throughput $R_{\text{fair}}^{\ddagger}$.
+	\end{algorithmic}
+\end{algorithm}
+
+\subsection{SCA based Algorithm}
+
+The sub-optimal resource allocation scheme $\{\mathbf{t}^{D\dagger}, \mathbf{t}^{U\dagger}, \boldsymbol{\rho}^{\dagger}, \mathbf{W}_t^{\dagger}\}$ to (P4) can then be obtained by alternatively solving (P5-1) and (P6), which is detailed in Algorithm 6. {\color{red} (Please characterise the complexity.)}  Note that the existence of a feasible resource allocation scheme to (P4) is validated by solving (P1-2) in Algorithm 1. This may substantially increase the robustness of the SCA based Algorithm 6.
+
+\begin{algorithm}[!t]
+	\caption{SCA based algorithm for solving (P4)}
+	\footnotesize
+	\begin{algorithmic}[1]
+		\REQUIRE ~~\
+		Path loss of $\{\Omega_1,\cdots,\Omega_K\}$;\
+		Channel fading coefficients of $\{\mathbf{h}_1,\cdots,\mathbf{h}_K\}$;\
+		Transmit power of the H-BS $P_{t}$;\
+		Noise power of the passband to baseband converter $\sigma^2_{cov}$;\
+		Duration of the transmission phase $T_t$;\
+		Error tolerance $\epsilon$.
+		\ENSURE ~~\
+		The sub-optimal resource allocation scheme $\{\mathbf{t}^{D\dagger}, \mathbf{t}^{U\dagger}, \boldsymbol{\rho}^{\dagger}, \mathbf{W}_t^{\dagger}\}$ in time- power- and spatial-domain;\
+		The resultant uplink fair-throughput $R_{\text{fair}}^{\dagger}$.
+		\STATE Initialise the transmit beamforming matrix $\mathbf{W}_t\leftarrow \mathbf{I} / N_t$ in Algorithm 1;
+		\STATE Obtain a feasible transmit beamforming matrix $\mathbf{W}_{t,0}^{\ddagger}$ and the resultant minimum total duration $T_{\min}^{D\ddagger}$ of the downlink time-slots by solving (P1-3) based on Algorithm 1;
+		\IF{$T_{\min}^{D\ddagger} < T_t$}
+			\STATE Initialise an uplink fair-throughput recorder $R_{\text{fair},0}\leftarrow 0$;
+			\STATE Initialise another uplink fair-throughput recorder $R_{\text{fair},1}\leftarrow 2\epsilon$;
+			\STATE Initialise the transmit beamforming matrix $\mathbf{W}_t\leftarrow \mathbf{W}_{t,0}^{\ddagger}$ in Algorithm 4 for solving (P5-1);
+			\STATE Initialise the transmit beamforming matrix $\mathbf{W}_t\leftarrow \mathbf{W}_{t,0}^{\ddagger}$ in Algorithm 5 for solving (P3-1);
+			\WHILE{$R_{\text{fair},1} - R_{\text{fair},0}> \epsilon$}
+				\STATE Update $R_{\text{fair},0}\leftarrow R_{\text{fair},1}$;
+				\STATE Obtain the optimal solution $\{\mathbf{t}^{D\ddagger}, \mathbf{t}^{U\ddagger}, \boldsymbol{\rho}^{\ddagger}\}$ to (P5-1) based on Algorithm 4;
+				\STATE Update $\{\mathbf{t}^{D}, \mathbf{t}^{U}, \boldsymbol{\rho}\}\leftarrow \{\mathbf{t}^{D\ddagger}, \mathbf{t}^{U\ddagger}, \boldsymbol{\rho}^{\ddagger}\}$ in Algorithm 5 for solving (P6);
+				\STATE Obtain the optimal solution $\mathbf{W}_t^{\ddagger}$ to (P6) and the resultant uplink fair-throughput $R_{\text{fair}}^{\ddagger}$ based on Algorithm 5;
+				\STATE Update $R_{\text{fair},1}\leftarrow R_{\text{fair}}^{\ddagger}$;
+				\STATE Update $\mathbf{W}_t \leftarrow \mathbf{W}_t^{\ddagger}$ in Algorithm 4 for solving (P5-1) and in Algorithm 5 for solving (P6);
+			\ENDWHILE
+			\STATE Update $\{\mathbf{t}^{D\dagger}, \mathbf{t}^{U\dagger}, \boldsymbol{\rho}^{\dagger}, \mathbf{W}_t^{\dagger}\} \leftarrow \{\mathbf{t}^{D\ddagger}, \mathbf{t}^{U\ddagger}, \boldsymbol{\rho}^{\ddagger}, \mathbf{W}_t^{\ddagger}\}$, $R_{\text{fair}}^{\dagger}\leftarrow R_{\text{fair}}^{\ddagger}$;
+		\ELSE
+			\STATE No feasible resource allocation scheme.
+		\ENDIF
+		\RETURN $\{\mathbf{t}^{D\dagger}, \mathbf{t}^{U\dagger}, \boldsymbol{\rho}^{\dagger}, \mathbf{W}_t^{\dagger}\}$ and $R_{\text{fair}}^{\dagger}$.
+	\end{algorithmic}
+\end{algorithm}
+
+\section{Numerical Results}
+
+{\color{red} (Please provide the parameters, which are denoted as the question mark `?' in this section.)}
+
+In this section, numerical results are provided for characterising the performance of our SCA based multi-dimensional resource allocation algorithms. The transmit power of the H-BS is set to be $P_t = 30$ dBm, which is not altered unless specific explanation. The power of the noise incurred by the passband to baseband converter is set to be $\sigma_{cov} = -40$ dBm. As shown in Eq.\eqref{eq:PathLoss}, the near-field reference distance of the transmit antennas is set to be $d_0 = 1$ m. The RF signal propagating from the transmit antennas to this reference distance suffers from the path-loss of $\Omega_0 = 30$ dB. The path-loss exponent is set to be $\alpha = 2$. Furthermore, uncorrelated Rayleigh block fading is assumed, which remains constant during a single transmission frame $T$, as depicted in Fig.\ref{fig:Frame}, but varies from one transmission frame to another. Both the real and imaginary parts of the channel fading coefficient obey a Gaussian distribution with a zero mean and a unity variance. Without further explanation, the numerical results in this section present the average uplink throughput performance by averaging the randomness incurred by the Rayleigh distributed fading. The main parameter settings are summarised in TABLE xxx. {\color{red} (Summarise these key parameter settings in a table.)}
+
+\begin{table}[!t]
+	\caption{Numerical Environment Settings}
+	\begin{tabular}{|c|c|}
+		\hline
+		$T_{t}$ & 1(s)\\
+		\hline
+		$\alpha$ & 2 \\
+		\hline
+		$P_t$ & 30(dBm) \\
+		\hline
+		$\sigma_{cov}^2$ & -40(dBm) \\
+		\hline
+		$d_0$ & 1(m) \\
+		\hline
+		$\Omega_0$ & 30(dB) \\
+		\hline
+		$\zeta$ & 1 \\
+		\hline
+		$\epsilon$ & $10^{(-5)}$ \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Convergence of the SCA Algorithm}
+
+\begin{figure}[!t]
+\centering{\subfigure[]{\includegraphics[width = 0.493\linewidth]{figure/Iteration/Iteration-Sum.eps}}
+\hfil
+%\vspace{0pt}
+\subfigure[]{\includegraphics[width = 0.493\linewidth]{figure/Iteration/Iteration-Fair.eps}}
+}
+\setlength{\abovecaptionskip}{0pt}
+\setlength{\belowcaptionskip}{0pt}\caption{The convergence of the SCA based multi-dimensional resource allocation algorithm: (a) Uplink sum-throughput maximisation; (b) Uplink fair-throughput maximisation.}
+\label{fig:Iteration}
+\end{figure}
+
+We first study the convergence of our proposed SCA based resource allocation algorithms in Fig.\ref{fig:Iteration}, which are adopted by the H-BS for supporting the downlink/uplink transmissions of $5$ UEs. The H-BS is equipped with $3$ antennas. The distances from these UEs to the H-BS are $\{2,2,2,3,3,\}$ m, respectively. We assume that the UEs have identical downlink throughput requirement $D\in \{0,0.5,1.0,2.0\}$ bit/Hz. When we have $D=0$ bit/Hz, our DEIN system degenerates to a conventional WPCN. Other parameters are in line with TABLE \uppercase\expandafter{\romannumeral2}.
+
+Then, we plot the number of iterations\footnote{We only quantify the number of iterations in the SCA based sum-throughput maximisation Algorithm 3 and fair-throughput maximisation Algorithm 6.} against the maximum uplink sum-throughput and fair-throughput in Fig.\ref{fig:Iteration}. Note that the expected uplink sum-throughput and fair-throughput in Fig.\ref{fig:Iteration} are evaluated by averaging the randomness incurred by the Rayleigh distributed fading. As indicated in its legend, we study the SCA based resource allocation algorithms with and without the optimal initialisation of the H-BS's transmit beamformer $\mathbf{W}_{t,0}^{\ddagger}$ by solving (P1-1). For the cases without the optimal transmit beamformer initialisation, the equal-gain transmit beamformer $\mathbf{W}_{t,0} = \mathbf{I}/N_t$ is adopted. Furthermore, in the case of WPCN having $D = 0$, the equal-gain transmit beamformer is also adopted for initialising the SCA based resource allocation algorithm.
+
+Observe from Fig.\ref{fig:Iteration}(a) that all the SCA based resource allocation algorithms having different downlink throughput requirements quickly converge to the maximum uplink sum-throughput by a single iteration or two. Specifically, the algorithms initialised by the equal-gain transmit beamformer converges after two iterations. By contrast, after being initialised by the optimal transmit beamformer $\mathbf{W}_{t,0}^{\ddagger}$ by solving (P1-1), the SCA based resource allocation Algorithm 3 converges to the maximum uplink sum-throughput by only a single iteration.
+
+We observe the similar trend from Fig.\ref{fig:Iteration}(b) that all the SCA based resource allocation algorithms having different downlink throughput requirements converge to the maximum uplink fair-throughput by a single iteration or two. Specifically, the algorithms initialised by the equal-gain transmit beamformer converges after two iterations. By contrast, after being initialised by the optimal transmit beamformer $\mathbf{W}_{t,0}^{\ddagger}$ by solving (P1-1), the SCA based resource allocation Algorithm 6 converges to the maximum uplink fair-throughput by only a single iteration.
+
+The numerical results of Fig.\ref{fig:Iteration} validate the low-complexity of our SCA based multi-dimensional resource allocation algorithm, which can be practically invoked by the H-BS for quickly responding to the dynamic information and energy requests of the UEs in  both the conventional WPCN and the generic DEIN. Furthermore, the low-complexity algorithm plays an important role in realising the low-latency WIT and WPT in the future DEIN.
+
+\subsection{Individual Uplink Throughput}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width = 0.5\linewidth]{figure/Individual/Individual.eps}
+\setlength{\abovecaptionskip}{0pt}
+\setlength{\belowcaptionskip}{0pt}\caption{The individual uplink throughput of the UEs, when different objectives are invoked for the resource allocation.}
+\label{fig:Individual}
+\end{figure}
+
+In order to highlight the difference between the uplink sum-throughput and fair-throughput maximisation, we plot the individual uplink throughput attained by $5$ UEs in the DEIN during a specific transmission frame, when the sum-throughput and fair-throughput maximisation based resource allocation schemes are invoked, respectively. The H-BS is equipped with $4$ antennas and its transmit power is $P_t=30$ dBm. The UEs' downlink throughput requirements are $\{D_1=1.0, D_2=1.0, D_3=1.0, D_4=1.0, D_5=1.0\}$ bit/Hz. The distances between these UEs and the H-BS are $\{2,2,2,3,3,\}$ m. During this transmission frame, the complex downlink channel fading coefficients are given by the following matrix:
+\begin{align}
+	\mathbf{H} = \left[
+		\begin{array}{l}
+		\mathbf{h}_1 \\
+		\mathbf{h}_2 \\
+		\mathbf{h}_3 \\
+		\mathbf{h}_4 \\
+		\mathbf{h}_5 \\
+		\end{array}
+		\right] = \left[
+		\begin{array}{lll}
+			-1.1480 - 0.6003i, &   0.1873 - 2.1384i, &   0.8404 + 0.1240i \\
+			0.1049 + 0.4900i, &  -0.0825 - 0.8396i, &  -0.8880 + 1.4367i  \\
+ 			0.7223 + 0.7394i, &  -1.9330 + 1.3546i, &   0.1001 - 1.9609i  \\
+ 			2.5855 + 1.7119i, &  -0.4390 - 1.0722i, &  -0.5445 - 0.1977i  \\
+ 			-0.6669 - 0.1941i, &  -1.7947 + 0.9610i, &   0.3035 - 1.2078i
+		\end{array}
+		\right].
+\end{align}
+By assuming the channel reciprocity, the uplink channel fading coefficients can be denoted as $\mathbf{H}^T$. Other parameter settings are in line with TABLE xxx.
+
+Observe from Fig.\ref{fig:Individual} that the attainable individual uplink throughput of the UEs varies, when the resource allocation aims for maximising the sum-throughput. For instance, more resources in the time- power- and spatial-domain are allocated to $U_3$, which may result in a fast growth of the uplink sum-throughput, since it is close to the H-BS and it has a higher channel fading coefficients. However, as depicted in Fig.\ref{fig:Individual}, the uplink sum-throughput maximisation results in the unfairness among the UEs in terms of their individual uplink throughput attained. For instance, $U_3$ attains an uplink throughput as high as $2.96$ bit/Hz but $U_5$ can only attain an uplink throughput of $0.22$ bit/Hz.
+
+The unfairness among the UEs may be addressed by maximising the uplink fair-throughput. Observe from Fig.\ref{fig:Individual} that by maximising the uplink fair-throughput, the multi-dimensional resources are more fairly allocated to all the UEs. As a result, every UE may attain an identical individual uplink throughput of $0.84$ bit/Hz. However, the performance of the uplink sum-throughput is inevitably sacrificed.
+
+As a result, the numerical results of Fig.\ref{fig:Individual} demonstrate that the uplink fair-throughput maximisation based resource allocation scheme is capable of overcoming the doubly near-far effect.
+
+\subsection{Multiple Transmit Antennas}
+
+\begin{figure}[!t]
+\centering{\subfigure[]{\includegraphics[width = 0.493\linewidth]{figure/Antenna/Antenna-Sum.eps}}
+\hfil
+%\vspace{0pt}
+\subfigure[]{\includegraphics[width = 0.493\linewidth]{figure/Antenna/Antenna-Fair.eps}}
+}
+\setlength{\abovecaptionskip}{0pt}
+\setlength{\belowcaptionskip}{0pt}\caption{The impact of the transmit antennas on the uplink throughput performance: (a) uplink sum-throughput; (b) uplink fair-throughput.}
+\label{fig:Antenna}
+\end{figure}
+
+We also study the impact of the transmit antennas on the uplink throughput in Fig.\ref{fig:Antenna}, where 3 UEs are supported by the H-BS. The transmit power of the H-BS is $P_t = 30$ dBm. The distances from these three UEs to the H-BS are $\{2,2,3\}$ m, while their downlink throughput requirements are all $D=1$ bit/Hz. Other parameters are in line with TABLE \uppercase\expandafter{\romannumeral2}.
+
+We first characterise the uplink sum-throughput of both the sum-throughput maximisation oriented and the fair-throughput maximisation oriented resource allocation schemes in Fig.\ref{fig:Antenna}(a). Obviously, increasing the number of transmit antennas of the H-BS increases the degree of freedom in the spatial domain. Therefore, the uplink sum-throughput is substantially increased. Furthermore, the fair-throughput maximisation oriented resource allocation scheme sacrifice its sum-throughput performance for achieving the optimal fairness. By letting $D=0$ bit/Hz, our DEIN degenerates to a conventional WPCN. Since the UEs in a WPCN do not require any downlink data, the downlink resources can be fully exploited for delivering more energy to the UEs. As a result, the uplink sum-throughput of the WPCN outperforms its DEIN counterpart.
+
+We then evaluate the uplink fair-throughput of both the sum-throughput maximisation oriented and the fair-throughput maximisation oriented resource allocation schemes in Fig.\ref{fig:Antenna}(b). Observe from Fig.\ref{fig:Antenna}(b) that increasing the number of the H-BS's transmit antennas is capable of enhancing the fair-throughput. Furthermore, the fair-throughput of the sum-throughput maximisation oriented resource allocation scheme is very poor, due to the doubly near-far effect.
+
+The numerical results of Fig.\ref{fig:Antenna} demonstrate that the sum-throughput maximisation and the fair-throughput maximisation are a pair of contradictory objectives, which should be carefully balanced in order to satisfy both the H-BS's and the UEs' benefits. These numerical results also validate that increasing the spatial-domain degrees of freedom is capable of improving the throughput performance.
+
+\subsection{Transmit Power of the H-BS}
+
+\begin{figure}[!t]
+\centering{\subfigure[]{\includegraphics[width = 0.493\linewidth]{figure/TxPower/TxPower-Sum.eps}}
+\hfil
+%\vspace{0pt}
+\subfigure[]{\includegraphics[width = 0.493\linewidth]{figure/TxPower/TxPower-Fair.eps}}
+}
+\setlength{\abovecaptionskip}{0pt}
+\setlength{\belowcaptionskip}{0pt}\caption{The impact of the transmit power on the uplink throughput performance: (a) uplink sum-throughput; (b) uplink fair-throughput.}
+\label{fig:TxPower}
+\end{figure}
+
+We then plot the transmit power of the H-BS against the throughput performance in Fig.\ref{fig:TxPower}, when the resource allocation schemes having different objectives are invoked and different number of antennas are equipped at the H-BS. There are $3$ UEs supported by the H-BS. The distances from these UEs to the H-BS are $\{2,2,3\}$ m, while their downlink throughput requirements are $\{1.0,1.0,1.0\}$ bit/Hz. Other parameter settings are in line with TABLE \uppercase\expandafter{\romannumeral2}.
+
+The trend observed in Fig.\ref{fig:TxPower} is similar to that observed in Fig.\ref{fig:Antenna} that both the uplink sum-throughput and fair-throughput increase as we increase the number of antennas equipped at the H-BS. Specifically, observe from Fig.\ref{fig:TxPower}(a) that the sum-throughput of the sum-throughput maximisation oriented resource allocation scheme almost increases linearly as we increase the transmit power of the H-BS. By contrast, the sum-throughput of the fair-throughput maximisation oriented resource allocation scheme gradually converge as we continuously increase the transmit power of the H-BS. This is because in order to guarantee the fairness, although the H-BS has a higher transmit power, the transmit beam may focus more energy to the UEs having poor channels, which largely restricts the growth of the sum-throughput.
+
+Furthermore, observe from Fig.\ref{fig:TxPower}(b) that the fair-throughput of the fair-throughput maximisation oriented resource allocation scheme steadily increases as we increase the transmit power of the H-BS. By contrast, the fair-throughput growth of the sum-throughput maximisation oriented resource allocation scheme is quite limited. This is because although the H-BS has a higher transmit power, the power may be beamed to the UEs having good channel quality in order to maximise the sum-throughput by somehow sacrificing the fairness among the UEs.
+
+The numerical results of Fig.\ref{fig:TxPower} demonstrate that having a higher transmit power, the H-BS may transfer more energy to the UEs during the downlink transmission, which largely improve the uplink throughput of the UEs. 
+
+\subsection{Downlink Throughput Requirement}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width = 0.5\linewidth]{figure/Downlink/Downlink.eps}
+\setlength{\abovecaptionskip}{0pt}
+\setlength{\belowcaptionskip}{0pt}\caption{The impact of the downlink throughput requirement on the uplink throughput.}
+\label{fig:Downlink}
+\end{figure}
+
+At last, we study the impact of the downlink throughput requirement on the throughput performance of our multi-dimensional resource allocation scheme. We have $3$ UEs supported by the H-BS equipped with $4$ antennas. The transmit power of the H-BS is $P_t = 30$ dBm. The distances from these UEs to the H-BS are $\{2,2,3\}$ m. All the $3$ UEs have identical downlink throughput requirement $D$ varying from $0$ bit/Hz to $4$ bit/Hz. Other parameter settings are in line with TABLE \uppercase\expandafter{\romannumeral2}.
+
+Observe from Fig.\ref{fig:Downlink} that as the downlink throughput requirement increases, both the uplink sum-throughput and the fair-throughput reduces. The reason is three-fold:
+\begin{itemize}
+	\item In order to satisfy the demanding downlink throughput requirement, more time-domain resources may be allocated to the downlink transmission, which thus reduces the time-domain resources allocated to the UEs for their uplink transmissions. 
+	\item More spatial-domain resources (e.g. the transmit beam) is allocated for satisfying the UEs' downlink throughput requirement, which thus reduces the spatial-domain resources used for the WPT in the downlink transmission. 
+	\item For the sake of satisfying the increasing downlink throughput requirement, the UE may use a larger portion of the received RF signal for information reception, which thus reduce the amount of energy harvested for powering their uplink transmissions.
+\end{itemize}
+Moreover, given the current parameter settings, the H-BS is capable of satisfying the downlink throughput requirement as high as $4$ bit/Hz but the uplink transmissions of the UEs are completely sacrifice. In this case, our DEIN degenerates to the pure downlink WIT system. Furthermore, observe from Fig.\ref{fig:Downlink} that when we have the downlink throughput requirement lower than 0.5 bit/Hz, the uplink throughput only reduces a little, compared to the conventional WPCN. 
+
+The numerical results of Fig.\ref{fig:Downlink} characterise the trade-off between the downlink throughput requirement and the uplink throughput performance. Furthermore, they also demonstrate that the H-BS is capable of delivering low-rate downlink data service to the UEs without obviously degrading their uplink throughput. This characteristic can be exploited for delivering the low-rate commanding information to the IoT devices, while powering them for their uplink transmissions.
+
+\section{Conclusion}
+This paper has extends previous DEIN system by adoptting multi-antenna BS. Both the sum-throuhgput and the fair-throughput are optimized by high performance algorithms. The numerical result shows that multi-antenna DEIN system has higher energy efficiency than the single-antenna DEIN system, also the DL and UL throughput region from the former is larger than it from the latter, \cbstart which is in line with the green IOT concept \cite{access_5}. \cbend. \cbstart Finally, both energy harvested from other UEs, eg \cite{access_1}, and interface, eg \cite{access_2} are worthy in our future work. \cbend
+
+
+\bibliography{Reference} 
+\bibliographystyle{ieeetr}
+
+
+
+
+
+% that's all folks
+\end{document}
+
+
