@@ -1,0 +1,82 @@
+This is BibTeX, Version 0.99d (TeX Live 2017)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: Space-Time-Power-v2.aux
+I couldn't open database file Reference.bib
+---line 176 of file Space-Time-Power-v2.aux
+ : \bibdata{Reference
+ :                   }
+I'm skipping whatever remains of this command
+The style file: ieeetr.bst
+I found no database files---while reading file Space-Time-Power-v2.aux
+Warning--I didn't find a database entry for "IOT"
+Warning--I didn't find a database entry for "IEEE:EH"
+Warning--I didn't find a database entry for "RF_EH_1"
+Warning--I didn't find a database entry for "RF_EH_2"
+Warning--I didn't find a database entry for "IEEE:swipt_2"
+Warning--I didn't find a database entry for "wpcn_1"
+Warning--I didn't find a database entry for "wpcn_2"
+Warning--I didn't find a database entry for "wpcn_3"
+Warning--I didn't find a database entry for "wpcn_4"
+Warning--I didn't find a database entry for "wpcn_5"
+Warning--I didn't find a database entry for "wpcn_6"
+Warning--I didn't find a database entry for "wpcn_7"
+Warning--I didn't find a database entry for "wpcn_8"
+Warning--I didn't find a database entry for "wpcn_9"
+Warning--I didn't find a database entry for "wpcn_10"
+Warning--I didn't find a database entry for "wpcn_11"
+Warning--I didn't find a database entry for "swipt_5"
+Warning--I didn't find a database entry for "swipt_6"
+Warning--I didn't find a database entry for "TS_1"
+Warning--I didn't find a database entry for "TS_2"
+Warning--I didn't find a database entry for "PS_1"
+Warning--I didn't find a database entry for "PS_2"
+Warning--I didn't find a database entry for "7046389"
+Warning--I didn't find a database entry for "access_3"
+Warning--I didn't find a database entry for "access_4"
+Warning--I didn't find a database entry for "sca"
+Warning--I didn't find a database entry for "convex"
+Warning--I didn't find a database entry for "access_5"
+Warning--I didn't find a database entry for "access_1"
+Warning--I didn't find a database entry for "access_2"
+You've used 0 entries,
+            1876 wiz_defined-function locations,
+            516 strings with 3739 characters,
+and the built_in function-call counts, 20 in all, are:
+= -- 0
+> -- 0
+< -- 0
++ -- 0
+- -- 0
+* -- 2
+:= -- 9
+add.period$ -- 0
+call.type$ -- 0
+change.case$ -- 0
+chr.to.int$ -- 0
+cite$ -- 0
+duplicate$ -- 0
+empty$ -- 1
+format.name$ -- 0
+if$ -- 1
+int.to.chr$ -- 0
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 3
+num.names$ -- 0
+pop$ -- 0
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 1
+stack$ -- 0
+substring$ -- 0
+swap$ -- 0
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 0
+width$ -- 0
+write$ -- 2
+(There were 2 error messages)

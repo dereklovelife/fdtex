@@ -1,4 +1,4 @@
-\documentclass[12pt,draftcls,onecolumn,journal]{IEEEtran}
+\documentclass[12pt,draft,onecolumn,journal]{IEEEtran}
 \usepackage{cite}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -167,11 +167,12 @@ In this section, Sum-Throughput is analysised to exploit the throughput limitati
 
 The uplink sum-throughput maximisation problem is then formulated as
 \begin{align}
-	\text{(P1): } & \max_{\mathbf{w_t}, \mathbf{t}, \mathbf{w_r}, \mathbf{\Theta} \sum_{i=1}^K R_{i}^U (\mathbf{w}_t, \mathbf{t}^D, t_i^U, \boldsymbol{\rho}) \label{eq:SumRate}\\
-	\text{s.t. } & R_{i}^D (\mathbf{w}_t, t_i^D, \rho_i) \geq D_i,\ \forall i = 1,\cdots, K, \tag{\ref{eq:SumRate}a} \label{eq:SumRate-a}\\
-	& 0\leq \rho_i\leq 1, \ \forall i = 1,\cdots, K, \tag{\ref{eq:SumRate}b} \label{eq:SumRate-b} \\
-	& \sum_{i=1}^K(t_i^D + t_i^U) \leq T_t, \tag{\ref{eq:SumRate}c} \label{eq:SumRate-c}\\
-	& \text{Tr}(\mathbf{w}_t\mathbf{w}_t^*) \leq 1. \tag{\ref{eq:SumRate}d} \label{eq:SumRate-d}
+	\text{(P1): } & \max_{\mathbf{\omega_t}, \mathbf{t}, \mathbf{\omega_r}, \mathbf{\Theta}} \sum_{i=1}^K R_{i}^U  \label{eq:SumRate}\\
+	\text{s.t. } & \sum_{i = 0}^j t_i \ leq T_t \tag{\ref{eq:SumRate}a} \label{eq:SumRate-a} \\
+	& \mathbf{Tr(\omega_rH_{si}\omega_t\omega_t^HH_{si}^H\omega_r^H)} \tag{\ref{eq:SumRate}b} \label{eq:SumRate-b} \\
+	& \sum_{i=1}^K(t_i^D + t_i^U) \leq T_t, \tag{\ref{eq:SumRate}c} \label{eq:SumRate-c} \\
+	& \text{Tr}(\mathbf{\omega}_t\mathbf{\omega}_t^H) \leq 1. \tag{\ref{eq:SumRate}d} \label{eq:SumRate-d} \\
+	& \text{Tr}(\mathbf{\omega}_r\mathbf{\omega}_r^H) \leq 1. \tag{\ref{eq:SumRate}d} \label{eq:SumRate-e}
 \end{align}
 As expressed in Eq.\eqref{eq:SumRate}, the objective of the optimisation problem (P1) is to maximise the uplink sum-throughput of all the UEs by optimising the transmit beamformer $\mathbf{w}_t$ in the spatial-domain, by optimising the duration of the downlink time-slots $\mathbf{t}^D$ and that of the uplink time-slots $\mathbf{t}^U$ in the time-domain as well as by optimising the power splitting strategies $\boldsymbol{\rho} = \{\rho_i | i = 1,\cdots, K\}$ in the power domain. The uplink throughput $R_i^U$ of $U_i$ in the objective \eqref{eq:SumRate} is a function of $\mathbf{w}_t$, $\mathbf{t}^D$, $t_i^U$ and $\boldsymbol{\rho}$, according to Eq.\eqref{eq:ULRate}. The downlink throughput $R_i^D$ of Eq.\eqref{eq:DLRate} is a function of $\mathbf{w}_t$, $t_i^D$ and $\rho_i$, which has to be higher than $U_i$'s downloading request $D_i$, as expressed in the constraint \eqref{eq:SumRate-a}. The power splitting ratios $\boldsymbol{\rho}$ is naturally constrained by \eqref{eq:SumRate-b}. As expressed in the constraint \eqref{eq:SumRate-c}, the total duration of all the downlink and uplink time-slots should be lower than the duration of the transmission phase $T_c$. The constraint \eqref{eq:SumRate-d} represents that the total power weights of the normalised transmit beamformer should be lower than a unity, where Tr$(\cdot)$ represents the trace of a matrix. By letting $\mathbf{W}_t = \mathbf{w}_t\mathbf{w}_t^*$, the constraint \eqref{eq:SumRate-d} is equivalent to the following pair: $\text{Tr}(\mathbf{W}_t) \leq 1$ and $\text{Rank}(\mathbf{W}_t) = 1$. The rank constraint imposes difficulty in solving the problem (P1). As a result, we relax the rank constraint on the semi-definite transmit beamforming matrix $\mathbf{W}_t$, which is well known as the semi-definite relaxation (SDR). Then, instead of $\mathbf{w}_t$, we will focus on the optimisation of the transmit beamforming matrix $\mathbf{W}_t$ without any rank constraint in the spatial-domain. By solving the relaxed problem (P1), We may obtain the our multi-dimensional resource allocation scheme $\{\mathbf{t}^{D\dagger}, \mathbf{t}^{U\dagger}, \boldsymbol{\rho}^\dagger, \mathbf{W}_t^\dagger\}$. Unfortunately, due to the coupled parameters $\{\mathbf{t}^{D}, \mathbf{t}^{U}, \boldsymbol{\rho}, \mathbf{W}_t\}$ and the SDR, we cannot find the global optimal solution, since (P1) is still a non-convex problem.
 

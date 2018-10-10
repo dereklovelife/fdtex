@@ -1,0 +1,858 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.4.10)  10 OCT 2018 10:39
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**Space-Time-Power-v2.tex
+(./Space-Time-Power-v2.tex
+LaTeX2e <2017-04-15>
+Babel <3.10> and hyphenation patterns for 84 language(s) loaded.
+(./IEEEtran.cls
+Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
+-- See the "IEEEtran_HOWTO" manual for usage information.
+-- http://www.michaelshell.org/tex/ieeetran/
+\@IEEEtrantmpdimenA=\dimen102
+\@IEEEtrantmpdimenB=\dimen103
+\@IEEEtrantmpdimenC=\dimen104
+\@IEEEtrantmpcountA=\count79
+\@IEEEtrantmpcountB=\count80
+\@IEEEtrantmpcountC=\count81
+\@IEEEtrantmptoksA=\toks14
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 503.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+-- Using 8.5in x 11in (letter) paper.
+-- Using PDF output.
+\@IEEEnormalsizeunitybaselineskip=\dimen105
+-- This is a 12 point document.
+\CLASSINFOnormalsizebaselineskip=\dimen106
+\CLASSINFOnormalsizeunitybaselineskip=\dimen107
+\IEEEnormaljot=\dimen108
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <14> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <20> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <20> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <22> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <22> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1090.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 1090.
+
+\IEEEquantizedlength=\dimen109
+\IEEEquantizedlengthdiff=\dimen110
+\IEEEquantizedtextheightdiff=\dimen111
+\IEEEilabelindentA=\dimen112
+\IEEEilabelindentB=\dimen113
+\IEEEilabelindent=\dimen114
+\IEEEelabelindent=\dimen115
+\IEEEdlabelindent=\dimen116
+\IEEElabelindent=\dimen117
+\IEEEiednormlabelsep=\dimen118
+\IEEEiedmathlabelsep=\dimen119
+\IEEEiedtopsep=\skip41
+\c@section=\count82
+\c@subsection=\count83
+\c@subsubsection=\count84
+\c@paragraph=\count85
+\c@IEEEsubequation=\count86
+\abovecaptionskip=\skip42
+\belowcaptionskip=\skip43
+\c@figure=\count87
+\c@table=\count88
+\@IEEEeqnnumcols=\count89
+\@IEEEeqncolcnt=\count90
+\@IEEEsubeqnnumrollback=\count91
+\@IEEEquantizeheightA=\dimen120
+\@IEEEquantizeheightB=\dimen121
+\@IEEEquantizeheightC=\dimen122
+\@IEEEquantizeprevdepth=\dimen123
+\@IEEEquantizemultiple=\count92
+\@IEEEquantizeboxA=\box26
+\@IEEEtmpitemindent=\dimen124
+\IEEEPARstartletwidth=\dimen125
+\c@IEEEbiography=\count93
+\@IEEEtranrubishbin=\box27
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/cite/cite.sty
+LaTeX Info: Redefining \cite on input line 302.
+LaTeX Info: Redefining \nocite on input line 332.
+Package: cite 2015/02/27  v 5.5
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2016/11/05 v2.16a AMS math features
+\@mathmargin=\skip44
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks15
+\ex@=\dimen126
+))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen127
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count94
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count95
+\leftroot@=\count96
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count97
+\DOTSCASE@=\count98
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
+\Mathstrutbox@=\box28
+\strutbox@=\box29
+\big@size=\dimen128
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count99
+\c@MaxMatrixCols=\count100
+\dotsspace@=\muskip10
+\c@parentequation=\count101
+\dspbrk@lvl=\count102
+\tag@help=\toks16
+\row@=\count103
+\column@=\count104
+\maxfields@=\count105
+\andhelp@=\toks17
+\eqnshift@=\dimen129
+\alignsep@=\dimen130
+\tagshift@=\dimen131
+\tagwidth@=\dimen132
+\totwidth@=\dimen133
+\lineht@=\dimen134
+\@envbody=\toks18
+\multlinegap=\skip45
+\multlinetaggap=\skip46
+\mathdisplay@stack=\toks19
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2017/04/11 v1.8q multicolumn formatting (FMi)
+\c@tracingmulticols=\count106
+\mult@box=\box30
+\multicol@leftmargin=\dimen135
+\c@unbalance=\count107
+\c@collectmore=\count108
+\doublecol@number=\count109
+\multicoltolerance=\count110
+\multicolpretolerance=\count111
+\full@width=\dimen136
+\page@free=\dimen137
+\premulticols=\dimen138
+\postmulticols=\dimen139
+\multicolsep=\skip47
+\multicolbaselineskip=\skip48
+\partial@page=\box31
+\last@line=\box32
+\maxbalancingoverflow=\dimen140
+\mult@rightbox=\box33
+\mult@grightbox=\box34
+\mult@gfirstbox=\box35
+\mult@firstbox=\box36
+\@tempa=\box37
+\@tempa=\box38
+\@tempa=\box39
+\@tempa=\box40
+\@tempa=\box41
+\@tempa=\box42
+\@tempa=\box43
+\@tempa=\box44
+\@tempa=\box45
+\@tempa=\box46
+\@tempa=\box47
+\@tempa=\box48
+\@tempa=\box49
+\@tempa=\box50
+\@tempa=\box51
+\@tempa=\box52
+\@tempa=\box53
+\c@columnbadness=\count112
+\c@finalcolumnbadness=\count113
+\last@try=\dimen141
+\multicolovershoot=\dimen142
+\multicolundershoot=\dimen143
+\mult@nat@firstbox=\box54
+\colbreak@box=\box55
+\mc@col@check@num=\count114
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks20
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/04/14 v1.1b Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2017/01/12 v0.06k Graphics/color for pdfTeX
+
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count115
+))
+\Gin@req@height=\dimen144
+\Gin@req@width=\dimen145
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/subfigure/subfigure.sty
+Package: subfigure 2002/03/15 v2.1.5 subfigure package
+\subfigtopskip=\skip49
+\subfigcapskip=\skip50
+\subfigcaptopadj=\dimen146
+\subfigbottomskip=\skip51
+\subfigcapmargin=\dimen147
+\subfiglabelskip=\skip52
+\c@subfigure=\count116
+\c@lofdepth=\count117
+\c@subtable=\count118
+\c@lotdepth=\count119
+
+****************************************
+* Local config file subfigure.cfg used *
+****************************************
+(/usr/local/texlive/2017/texmf-dist/tex/latex/subfigure/subfigure.cfg)
+\subfig@top=\skip53
+\subfig@bottom=\skip54
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf.sty
+Package: epstopdf 2016/05/15 v2.6 Conversion with epstopdf on the fly (HO)
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+)))
+(./algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+ (/usr/local/texlive/2017/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count120
+\float@exts=\toks21
+\float@box=\box56
+\@float@everytoks=\toks22
+\@floatcapt=\box57
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks23
+\c@algorithm=\count121
+)
+(./algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count122
+\c@ALC@line=\count123
+\c@ALC@rem=\count124
+\c@ALC@depth=\count125
+\ALC@tlm=\skip55
+\algorithmicindent=\skip56
+) (./changebar.sty
+Package: changebar 2018/03/09 v3.6c Indicate changes with marginal bars
+\cb@nextpoint=\count126
+\cb@topleft=\count127
+\cb@topright=\count128
+\cb@botleft=\count129
+\cb@botright=\count130
+\cb@cnta=\count131
+\cb@cntb=\count132
+\cb@dima=\dimen148
+\cb@curbarwd=\dimen149
+\cb@page=\count133
+\cb@pagecount=\count134
+\cb@odd@left=\dimen150
+\cb@odd@right=\dimen151
+\cb@even@left=\dimen152
+\cb@even@right=\dimen153
+\cb@writexy=\write3
+\cb@readxy=\read1
+\openout3 = `Space-Time-Power-v2.cb2'.
+
+\changebarwidth=\skip57
+\deletebarwidth=\skip58
+\changebarsep=\skip59
+\c@changebargrey=\count135
+\cb@write=\write4
+\cb@read=\read2
+\openout4 = `Space-Time-Power-v2.cb'.
+
+) (./Space-Time-Power-v2.aux)
+\openout1 = `Space-Time-Power-v2.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+
+-- Lines per column: 25 (approximate, difference = 12.52992pt).
+(/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count136
+\scratchdimen=\dimen154
+\scratchbox=\box58
+\nofMPsegments=\count137
+\nofMParguments=\count138
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count139
+\MPscratchDim=\dimen155
+\MPnumerator=\count140
+\makeMPintoPDFobject=\count141
+\everyMPtoPDFconversion=\toks25
+) [1{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+
+LaTeX Warning: Citation `IOT' on page 2 undefined on input line 46.
+
+
+LaTeX Warning: Citation `IEEE:EH' on page 2 undefined on input line 48.
+
+
+LaTeX Warning: Citation `RF_EH_1' on page 2 undefined on input line 48.
+
+
+LaTeX Warning: Citation `RF_EH_2' on page 2 undefined on input line 48.
+
+
+LaTeX Warning: Citation `IEEE:swipt_2' on page 2 undefined on input line 48.
+
+[2]
+
+LaTeX Warning: Citation `wpcn_1' on page 3 undefined on input line 50.
+
+
+LaTeX Warning: Citation `wpcn_2' on page 3 undefined on input line 50.
+
+
+LaTeX Warning: Citation `wpcn_3' on page 3 undefined on input line 50.
+
+
+LaTeX Warning: Citation `wpcn_4' on page 3 undefined on input line 50.
+
+
+LaTeX Warning: Citation `wpcn_5' on page 3 undefined on input line 50.
+
+
+LaTeX Warning: Citation `wpcn_6' on page 3 undefined on input line 50.
+
+
+LaTeX Warning: Citation `wpcn_7' on page 3 undefined on input line 50.
+
+
+LaTeX Warning: Citation `wpcn_8' on page 3 undefined on input line 50.
+
+
+LaTeX Warning: Citation `wpcn_9' on page 3 undefined on input line 50.
+
+
+LaTeX Warning: Citation `wpcn_10' on page 3 undefined on input line 50.
+
+
+LaTeX Warning: Citation `wpcn_11' on page 3 undefined on input line 50.
+
+
+LaTeX Warning: Citation `wpcn_1' on page 3 undefined on input line 50.
+
+
+LaTeX Warning: Citation `wpcn_1' on page 3 undefined on input line 52.
+
+
+LaTeX Warning: Citation `wpcn_2' on page 3 undefined on input line 52.
+
+
+LaTeX Warning: Citation `wpcn_4' on page 3 undefined on input line 52.
+
+
+LaTeX Warning: Citation `wpcn_8' on page 3 undefined on input line 52.
+
+
+LaTeX Warning: Citation `wpcn_3' on page 3 undefined on input line 52.
+
+
+LaTeX Warning: Citation `wpcn_6' on page 3 undefined on input line 52.
+
+
+LaTeX Warning: Citation `wpcn_10' on page 3 undefined on input line 52.
+
+
+LaTeX Warning: Citation `wpcn_5' on page 3 undefined on input line 52.
+
+
+LaTeX Warning: Citation `wpcn_7' on page 3 undefined on input line 52.
+
+
+LaTeX Warning: Citation `wpcn_9' on page 3 undefined on input line 52.
+
+
+LaTeX Warning: Citation `wpcn_11' on page 3 undefined on input line 52.
+
+[3]
+
+LaTeX Warning: Citation `wpcn_1' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `wpcn_2' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `wpcn_3' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `wpcn_4' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `wpcn_5' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `wpcn_6' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `wpcn_7' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `wpcn_8' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `wpcn_9' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `wpcn_10' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `wpcn_11' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `swipt_5' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `swipt_6' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `TS_1' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `TS_2' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `PS_1' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `PS_2' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `swipt_5' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `swipt_6' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `swipt_5' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `swipt_6' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `TS_1' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `TS_2' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `PS_1' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `PS_2' on page 4 undefined on input line 55.
+
+
+LaTeX Warning: Citation `swipt_5' on page 4 undefined on input line 55.
+
+[4]
+LaTeX Font Info:    Try loading font information for U+msa on input line 59.
+ (/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 59.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+
+LaTeX Warning: File `figure/System.pdf' not found on input line 72.
+
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 72.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+) [5] [6]
+
+LaTeX Warning: File `figure/Frame.pdf' not found on input line 96.
+
+[7]
+
+LaTeX Warning: Citation `7046389' on page 8 undefined on input line 105.
+
+[8]
+
+LaTeX Warning: Citation `wpcn_1' on page 9 undefined on input line 115.
+
+[9]
+
+LaTeX Warning: Citation `access_3' on page 10 undefined on input line 126.
+
+
+LaTeX Warning: Citation `access_4' on page 10 undefined on input line 126.
+
+
+Package Changebar Warning: Badly nested changebars; Expect erroneous results on
+ input line 143.
+
+[10] [11]
+
+LaTeX Warning: Reference `eq:ULRate' on page 12 undefined on input line 177.
+
+
+LaTeX Warning: Reference `eq:DLRate' on page 12 undefined on input line 177.
+
+[12]
+
+LaTeX Warning: Citation `sca' on page 13 undefined on input line 179.
+
+
+LaTeX Warning: Reference `eq:DLRate' on page 13 undefined on input line 185.
+
+
+LaTeX Warning: Reference `eq:ULRate' on page 13 undefined on input line 185.
+
+[13]
+
+LaTeX Warning: Reference `eq:DLRate' on page 14 undefined on input line 193.
+
+
+LaTeX Warning: Reference `eq:ULRate' on page 14 undefined on input line 193.
+
+[14]
+
+LaTeX Warning: Citation `convex' on page 15 undefined on input line 209.
+
+
+LaTeX Warning: Citation `convex' on page 15 undefined on input line 214.
+
+[15]
+
+LaTeX Warning: Reference `eq:EHENergy' on page 16 undefined on input line 268.
+
+[16] [17]
+
+LaTeX Warning: Reference `eq:EHENergy' on page 18 undefined on input line 291.
+
+
+LaTeX Warning: Reference `eq:ULRate' on page 18 undefined on input line 291.
+
+[18] [19] [20]
+
+LaTeX Warning: Citation `wpcn_1' on page 21 undefined on input line 413.
+
+
+LaTeX Warning: Reference `eq:ULRate' on page 21 undefined on input line 415.
+
+
+LaTeX Warning: Citation `wpcn_1' on page 21 undefined on input line 415.
+
+[21] [22] [23] [24] [25] [26] [27] [28] [29] [30]
+
+LaTeX Warning: File `figure/Iteration/Iteration-Sum.eps' not found on input lin
+e 658.
+
+Package epstopdf Info: Source file: <figure/Iteration/Iteration-Sum.eps>
+(epstopdf)             Output file: <figure/Iteration/Iteration-Sum-eps-convert
+ed-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=figure/Iteration/Iteration
+-Sum-eps-converted-to.pdf figure/Iteration/Iteration-Sum.eps>
+(epstopdf)             \includegraphics on input line 658.
+Package epstopdf Info: Output file is already uptodate.
+
+LaTeX Warning: File `figure/Iteration/Iteration-Fair.eps' not found on input li
+ne 661.
+
+Package epstopdf Info: Source file: <figure/Iteration/Iteration-Fair.eps>
+(epstopdf)             Output file: <figure/Iteration/Iteration-Fair-eps-conver
+ted-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=figure/Iteration/Iteration
+-Fair-eps-converted-to.pdf figure/Iteration/Iteration-Fair.eps>
+(epstopdf)             \includegraphics on input line 661.
+Package epstopdf Info: Output file is already uptodate.
+[31] [32] [33]
+Overfull \hbox (0.87794pt too wide) in paragraph at lines 676--677
+[]\OT1/ptm/m/n/12 The nu-mer-i-cal re-sults of Fig.3[] val-i-date the low-compl
+exity of our SCA based multi-dimensional
+ []
+
+
+LaTeX Warning: File `figure/Individual/Individual.eps' not found on input line 
+682.
+
+Package epstopdf Info: Source file: <figure/Individual/Individual.eps>
+(epstopdf)             Output file: <figure/Individual/Individual-eps-converted
+-to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=figure/Individual/Individu
+al-eps-converted-to.pdf figure/Individual/Individual.eps>
+(epstopdf)             \includegraphics on input line 682.
+Package epstopdf Info: Output file is already uptodate.
+[34]
+
+LaTeX Warning: File `figure/Antenna/Antenna-Sum.eps' not found on input line 71
+9.
+
+Package epstopdf Info: Source file: <figure/Antenna/Antenna-Sum.eps>
+(epstopdf)             Output file: <figure/Antenna/Antenna-Sum-eps-converted-t
+o.pdf>
+(epstopdf)             Command: <repstopdf --outfile=figure/Antenna/Antenna-Sum
+-eps-converted-to.pdf figure/Antenna/Antenna-Sum.eps>
+(epstopdf)             \includegraphics on input line 719.
+Package epstopdf Info: Output file is already uptodate.
+
+LaTeX Warning: File `figure/Antenna/Antenna-Fair.eps' not found on input line 7
+22.
+
+Package epstopdf Info: Source file: <figure/Antenna/Antenna-Fair.eps>
+(epstopdf)             Output file: <figure/Antenna/Antenna-Fair-eps-converted-
+to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=figure/Antenna/Antenna-Fai
+r-eps-converted-to.pdf figure/Antenna/Antenna-Fair.eps>
+(epstopdf)             \includegraphics on input line 722.
+Package epstopdf Info: Output file is already uptodate.
+[35] [36]
+
+LaTeX Warning: File `figure/TxPower/TxPower-Sum.eps' not found on input line 74
+0.
+
+Package epstopdf Info: Source file: <figure/TxPower/TxPower-Sum.eps>
+(epstopdf)             Output file: <figure/TxPower/TxPower-Sum-eps-converted-t
+o.pdf>
+(epstopdf)             Command: <repstopdf --outfile=figure/TxPower/TxPower-Sum
+-eps-converted-to.pdf figure/TxPower/TxPower-Sum.eps>
+(epstopdf)             \includegraphics on input line 740.
+Package epstopdf Info: Output file is already uptodate.
+
+LaTeX Warning: File `figure/TxPower/TxPower-Fair.eps' not found on input line 7
+43.
+
+Package epstopdf Info: Source file: <figure/TxPower/TxPower-Fair.eps>
+(epstopdf)             Output file: <figure/TxPower/TxPower-Fair-eps-converted-
+to.pdf>
+(epstopdf)             Command: <repstopdf --outfile=figure/TxPower/TxPower-Fai
+r-eps-converted-to.pdf figure/TxPower/TxPower-Fair.eps>
+(epstopdf)             \includegraphics on input line 743.
+Package epstopdf Info: Output file is already uptodate.
+[37]
+
+LaTeX Warning: File `figure/Downlink/Downlink.eps' not found on input line 762.
+
+
+Package epstopdf Info: Source file: <figure/Downlink/Downlink.eps>
+(epstopdf)             Output file: <figure/Downlink/Downlink-eps-converted-to.
+pdf>
+(epstopdf)             Command: <repstopdf --outfile=figure/Downlink/Downlink-e
+ps-converted-to.pdf figure/Downlink/Downlink.eps>
+(epstopdf)             \includegraphics on input line 762.
+Package epstopdf Info: Output file is already uptodate.
+[38] [39]
+
+LaTeX Warning: Citation `access_5' on page 40 undefined on input line 781.
+
+
+LaTeX Warning: Citation `access_1' on page 40 undefined on input line 781.
+
+
+LaTeX Warning: Citation `access_2' on page 40 undefined on input line 781.
+
+(./Space-Time-Power-v2.bbl
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.3 \end{thebibliography}
+                         
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+) [40] (./Space-Time-Power-v2.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 4313 strings out of 492995
+ 62361 string characters out of 6132704
+ 145500 words of memory out of 5000000
+ 7737 multiletter control sequences out of 15000+600000
+ 52749 words of font info for 112 fonts, out of 8000000 for 9000
+ 1144 hyphenation exceptions out of 8191
+ 42i,16n,25p,2437b,544s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/te
+xlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx6.pfb></usr/local/texl
+ive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texliv
+e/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/
+2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2
+017/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texliv
+e/2017/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/local/tex
+live/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texl
+ive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texliv
+e/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/
+2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/20
+17/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2017
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2017
+/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib6.pfb></usr/local/texlive/
+2017/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/local/texl
+ive/2017/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib9.pfb></usr/local/
+texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/te
+xlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texli
+ve/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/
+2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/201
+7/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2017/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2017/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2017/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2017/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2017/texmf-dist
+/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2017/texmf-
+dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2017/texmf-dist/fon
+ts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/u
+rw/times/utmbi8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/
+utmr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmri8a.pf
+b>
+Output written on Space-Time-Power-v2.pdf (40 pages, 408525 bytes).
+PDF statistics:
+ 264 PDF objects out of 1000 (max. 8388607)
+ 188 compressed objects within 2 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
